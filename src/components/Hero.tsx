@@ -144,13 +144,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="absolute inset-0 z-20 pointer-events-none">
-        <img
-          src="/images/hously-foreground.png"
-          alt="Металлоконструкции"
-          className="w-full h-full object-cover object-center"
-        />
-      </div>
+
 
       {animationComplete && (
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce z-30">
