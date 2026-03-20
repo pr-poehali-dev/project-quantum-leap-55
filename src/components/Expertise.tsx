@@ -1,30 +1,31 @@
 import { useEffect, useRef, useState } from "react"
-import { Home, Building, Armchair, Trees } from "lucide-react"
 import { HighlightedText } from "./HighlightedText"
+import Icon from "@/components/ui/icon"
 
 const expertiseAreas = [
   {
-    title: "Жилая архитектура",
-    description: "Создаем дома, которые сочетают красоту с комфортом, где каждое пространство служит и форме, и функции.",
-    icon: Home,
+    title: "Ангары",
+    description:
+      "Проектируем и монтируем ангары любого типа и назначения: для хранения зерна и техники в агрохолдингах, складские комплексы для бизнеса, производственные помещения. Любые размеры и конфигурации.",
+    icon: "Warehouse",
   },
   {
-    title: "Коммерческие объекты",
+    title: "Резервуары РВС и РГС",
     description:
-      "Проектируем рабочие пространства, которые вдохновляют на продуктивность и отражают ценности передовых организаций.",
-    icon: Building,
+      "Производство и монтаж вертикальных и горизонтальных стальных резервуаров с системами подогрева, забора и подачи. Для битума, нефтепродуктов, воды, кислот, удобрений и других жидкостей.",
+    icon: "Cylinder",
   },
   {
-    title: "Дизайн интерьеров",
+    title: "Стальные заборы",
     description:
-      "Создаем интерьеры, которые гармонируют с архитектурной оболочкой, формируя целостный пространственный опыт.",
-    icon: Armchair,
+      "Изготовление и установка заборов из профлиста и трубы различных типов. Подходит для промышленных предприятий, агрохозяйств и частных территорий. Долговечно, надёжно, эстетично.",
+    icon: "LayoutGrid",
   },
   {
-    title: "Градостроительство",
+    title: "Под ключ",
     description:
-      "Формируем сообщества через продуманную интеграцию общественных пространств, зданий и природных элементов.",
-    icon: Trees,
+      "Все этапы — проектирование, производство, доставка и монтаж — выполняем самостоятельно. Вы получаете готовый объект без лишних согласований и посредников.",
+    icon: "KeyRound",
   },
 ]
 
@@ -59,18 +60,17 @@ export function Expertise() {
         <div className="max-w-3xl mb-20">
           <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-6">Наши услуги</p>
           <h2 className="text-6xl font-medium leading-[1.15] tracking-tight mb-6 text-balance lg:text-8xl">
-            <HighlightedText>Экспертиза</HighlightedText>, отточенная
+            <HighlightedText>Производство</HighlightedText> и монтаж
             <br />
-            практикой
+            металлоконструкций
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            Каждый проект опирается на десятилетия совокупного опыта, создавая архитектуру, которая одновременно инновационна и вневременна.
+            Работаем с промышленными предприятиями, агрохолдингами и частными заказчиками. Гарантируем качество на каждом этапе.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-16">
           {expertiseAreas.map((area, index) => {
-            const Icon = area.icon
             return (
               <div
                 key={area.title}
@@ -91,7 +91,7 @@ export function Expertise() {
                     transitionDelay: `${index * 150}ms`,
                   }}
                 >
-                  <Icon className="w-10 h-10 mb-4 text-foreground" strokeWidth={1.25} />
+                  <Icon name={area.icon} className="w-10 h-10 mb-4 text-foreground" strokeWidth={1.25} />
                 </div>
                 <h3 className="text-xl font-medium mb-4">{area.title}</h3>
                 <p className="text-muted-foreground leading-relaxed">{area.description}</p>
