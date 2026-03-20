@@ -130,7 +130,7 @@ export function Hero() {
       <div
         className="container mx-auto px-6 md:px-12 lg:pt-0 relative z-10 pb-0 pl-1 pr-1 pt-8 md:pt-0"
       >
-        <div className="mb-16 md:mb-12 lg:mb-16 mt-[36vh] md:mt-[41vh]">
+        <div className="mb-16 md:mb-12 lg:mb-16 mt-[28vh] md:mt-[33vh]">
           <p className="text-sm tracking-[0.3em] uppercase text-center text-secondary mb-0">{"Производство и монтаж металлоконструкций · Общестроительные работы"}</p>
 
           <h1
