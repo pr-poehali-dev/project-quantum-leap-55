@@ -16,6 +16,17 @@ const projects = [
   },
   {
     id: 2,
+    title: "Ангар под ключ",
+    category: "Производственный ангар",
+    location: "Промышленный объект",
+    year: "2024",
+    images: [
+      "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/be4869ed-6ee8-421c-af5e-5e0a43ba26ac.jpg",
+      "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/48d85563-9f28-4770-8d2d-aa067769fb5a.jpg",
+    ],
+  },
+  {
+    id: 3,
     title: "РГС для битума с подогревом",
     category: "Резервуар горизонтальный стальной",
     location: "Дорожно-строительная компания",
