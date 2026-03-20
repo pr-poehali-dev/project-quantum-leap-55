@@ -5,7 +5,11 @@ export function Footer() {
         <div className="grid md:grid-cols-4 gap-12 mb-16">
           <div className="md:col-span-2">
             <a href="/" className="inline-block mb-6">
-              <span className="text-foreground font-bold text-xl tracking-wider">СК ВЫСОТА</span>
+              <img
+                src="https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/44f689af-75b7-4fd8-b1b9-6d1422739045.jpg"
+                alt="СК Высота"
+                className="h-14 w-auto object-contain"
+              />
             </a>
             <p className="text-muted-foreground leading-relaxed max-w-sm">
               Производство и монтаж ангаров, стальных резервуаров и заборов. Всё своими силами — без посредников и с гарантией качества.

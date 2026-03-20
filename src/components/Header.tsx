@@ -33,7 +33,11 @@ export function Header() {
     >
       <nav className="container mx-auto px-6 flex items-center justify-between md:px-[24]">
         <a href="/" className="flex items-center gap-2 group" onClick={scrollToTop}>
-          <span className="text-white font-bold text-xl tracking-wider">СК ВЫСОТА</span>
+          <img
+            src="https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/44f689af-75b7-4fd8-b1b9-6d1422739045.jpg"
+            alt="СК Высота"
+            className="h-10 w-auto object-contain"
+          />
         </a>
 
         <ul className="hidden md:flex items-center gap-10 text-sm tracking-wide">
