@@ -22,6 +22,16 @@ export function Header() {
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
+  const openPriceInfo = () => {
+    const faqSection = document.getElementById("faq")
+    if (faqSection) {
+      faqSection.scrollIntoView({ behavior: "smooth" })
+    }
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent("openFaqItem", { detail: { index: 0 } }))
+    }, 600)
+  }
+
   return (
     <header
       className={cn(
@@ -59,17 +69,25 @@ export function Header() {
           ))}
         </ul>
 
-        <a
-          href="#contact"
-          className={cn(
-            "hidden md:inline-flex items-center gap-2 text-sm px-5 py-2.5 transition-all duration-300",
-            scrolled
-              ? "bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white"
-              : "bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white",
-          )}
-        >
-          Связаться с нами
-        </a>
+        <div className="hidden md:flex items-center gap-3">
+          <button
+            onClick={openPriceInfo}
+            className="text-sm px-5 py-2.5 transition-all duration-300 border border-white/40 text-white hover:bg-white hover:text-foreground"
+          >
+            Стоимость услуг
+          </button>
+          <a
+            href="#contact"
+            className={cn(
+              "inline-flex items-center gap-2 text-sm px-5 py-2.5 transition-all duration-300",
+              scrolled
+                ? "bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white"
+                : "bg-white text-foreground border border-foreground/20 hover:bg-foreground hover:text-white",
+            )}
+          >
+            Связаться с нами
+          </a>
+        </div>
 
         <button
           className="md:hidden z-50 transition-colors duration-300 text-white"

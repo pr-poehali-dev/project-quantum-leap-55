@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Plus } from "lucide-react"
 
 const faqs = [
@@ -75,6 +75,15 @@ export function FAQ() {
   const toggleQuestion = (index: number) => {
     setOpenIndex(openIndex === index ? null : index)
   }
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const index = (e as CustomEvent).detail?.index ?? 0
+      setOpenIndex(index)
+    }
+    window.addEventListener("openFaqItem", handler)
+    return () => window.removeEventListener("openFaqItem", handler)
+  }, [])
 
   return (
     <section id="faq" className="py-20 md:py-29">
