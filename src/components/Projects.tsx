@@ -16,6 +16,7 @@ const projects = [
       "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/e2b1965f-9817-4f1a-b354-ec84470eaf0a.jpg",
       "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/06912b08-6384-4b60-a229-8f4b01d04905.jpg",
       "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/01e689af-7619-40e6-878a-aa645c37e342.jpg",
+      "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/e337e698-2c05-416a-bdf7-a76cedb9bb82.jpg",
     ],
   },
   {
