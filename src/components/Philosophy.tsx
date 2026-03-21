@@ -80,7 +80,7 @@ export function Philosophy() {
           {/* Левая колонка */}
           <div className="lg:sticky lg:top-32 lg:self-start">
             <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-6">О компании</p>
-            <h2 className="md:text-6xl leading-[1.15] tracking-tight mb-8 text-balance lg:text-8xl text-center text-6xl font-thin">Строим надежное будущее</h2>
+            <h2 className="md:text-6xl leading-[1.15] tracking-tight mb-8 text-balance lg:text-8xl text-center font-thin text-6xl">Строим надежное будущее</h2>
 
             {/* Табы */}
             <div className="flex gap-1 mb-8 border-b border-border">
