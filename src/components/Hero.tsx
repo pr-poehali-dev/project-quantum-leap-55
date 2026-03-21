@@ -132,7 +132,7 @@ export function Hero() {
         className="container mx-auto px-6 md:px-12 lg:pt-0 relative z-10 pb-0 pl-1 pr-1 pt-8 md:pt-0 -mt-32"
       >
         <div className="text-center">
-          <p className="tracking-[0.3em] uppercase mb-0 text-center font-extrabold text-xs md:text-xl text-slate-200" style={{fontWeight: 800}}>Общестроительные работы · Производство и монтаж металлоконструкций · Малоэтажное строительство под ключ · Благоустройство</p>
+          <p className="tracking-[0.3em] uppercase mb-0 text-center font-extrabold text-xs md:text-xl text-slate-200 mt-12 md:mt-0" style={{fontWeight: 800}}>Общестроительные работы · Производство и монтаж металлоконструкций · Малоэтажное строительство под ключ · Благоустройство</p>
 
           <h1
             ref={titleRef}
