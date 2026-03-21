@@ -108,38 +108,38 @@ export default function Contacts() {
       <main className="pt-40 pb-32">
         <div className="container mx-auto px-6 md:px-12">
           <div className="max-w-3xl mb-16">
-            <p className="text-white/50 text-sm tracking-[0.3em] uppercase mb-6">Контакты</p>
-            <h1 className="text-6xl font-thin leading-[1.15] tracking-tight mb-6 text-white">
+            <p className="text-amber-300/60 text-sm tracking-[0.3em] uppercase mb-6">Контакты</p>
+            <h1 className="text-6xl font-thin leading-[1.15] tracking-tight mb-6 text-amber-50">
               Свяжитесь с нами
             </h1>
-            <p className="text-white/60 text-lg leading-relaxed">
+            <p className="text-amber-200/70 text-lg leading-relaxed">
               Наши специалисты готовы ответить на вопросы и подготовить расчёт для вашего проекта.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {managers.map((manager) => (
-              <div key={manager.email} className="border border-white/10 bg-white/5 backdrop-blur-sm p-8 flex flex-col gap-5">
-                <div className="w-20 h-20 bg-white/10 flex items-center justify-center">
+              <div key={manager.email} className="border border-amber-200/10 bg-amber-50/5 backdrop-blur-sm p-8 flex flex-col gap-5">
+                <div className="w-20 h-20 bg-amber-100/10 flex items-center justify-center">
                   {manager.photo ? (
                     <img src={manager.photo} alt={manager.name} className="w-full h-full object-cover" />
                   ) : (
-                    <Icon name="User" size={32} className="text-white/40" />
+                    <Icon name="User" size={32} className="text-amber-200/40" />
                   )}
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-medium mb-1 text-white">{manager.name}</h3>
-                  <p className="text-white/50 text-sm">{manager.role}</p>
-                  <p className="text-white/50 text-sm">{manager.specialty}</p>
+                  <h3 className="text-xl font-medium mb-1 text-amber-50">{manager.name}</h3>
+                  <p className="text-amber-200/50 text-sm">{manager.role}</p>
+                  <p className="text-amber-200/50 text-sm">{manager.specialty}</p>
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <a href={manager.phoneHref} className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors">
+                  <a href={manager.phoneHref} className="inline-flex items-center gap-2 text-sm text-amber-100/80 hover:text-amber-50 transition-colors">
                     <Icon name="Phone" size={16} />
                     {manager.phone}
                   </a>
-                  <a href={`mailto:${manager.email}`} className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors">
+                  <a href={`mailto:${manager.email}`} className="inline-flex items-center gap-2 text-sm text-amber-100/80 hover:text-amber-50 transition-colors">
                     <Icon name="Mail" size={16} />
                     {manager.email}
                   </a>
@@ -151,7 +151,7 @@ export default function Contacts() {
 
                 <button
                   onClick={() => setModalManager(manager)}
-                  className="mt-auto border border-white/30 text-white text-sm px-5 py-2.5 hover:bg-white hover:text-foreground transition-all duration-300"
+                  className="mt-auto border border-amber-200/30 text-amber-100 text-sm px-5 py-2.5 hover:bg-amber-100 hover:text-foreground transition-all duration-300"
                 >
                   Задать вопрос
                 </button>
@@ -159,22 +159,22 @@ export default function Contacts() {
             ))}
           </div>
 
-          <div className="border-t border-white/10 pt-16 grid md:grid-cols-3 gap-10">
+          <div className="border-t border-amber-200/10 pt-16 grid md:grid-cols-3 gap-10">
             <div>
-              <p className="text-sm tracking-[0.2em] uppercase text-white/40 mb-3">Email</p>
-              <a href="mailto:sk.visota90@mail.ru" className="text-lg text-white hover:text-white/70 transition-colors">
+              <p className="text-sm tracking-[0.2em] uppercase text-amber-300/40 mb-3">Email</p>
+              <a href="mailto:sk.visota90@mail.ru" className="text-lg text-amber-50 hover:text-amber-200 transition-colors">
                 sk.visota90@mail.ru
               </a>
             </div>
             <div>
-              <p className="text-sm tracking-[0.2em] uppercase text-white/40 mb-3">Телефон</p>
-              <a href="tel:+78001234567" className="text-lg text-white hover:text-white/70 transition-colors">
+              <p className="text-sm tracking-[0.2em] uppercase text-amber-300/40 mb-3">Телефон</p>
+              <a href="tel:+78001234567" className="text-lg text-amber-50 hover:text-amber-200 transition-colors">
                 +7 (800) 123-45-67
               </a>
             </div>
             <div>
-              <p className="text-sm tracking-[0.2em] uppercase text-white/40 mb-3">Режим работы</p>
-              <p className="text-lg text-white">Пн–Пт, 9:00–18:00</p>
+              <p className="text-sm tracking-[0.2em] uppercase text-amber-300/40 mb-3">Режим работы</p>
+              <p className="text-lg text-amber-50">Пн–Пт, 9:00–18:00</p>
             </div>
           </div>
         </div>
