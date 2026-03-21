@@ -54,6 +54,14 @@ const projects = [
       "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/3572c769-3c6c-40bb-a714-a6d35db9d785.jpg",
     ],
   },
+  {
+    id: 5,
+    title: "Металлический забор на каркасе из профильной трубы с обшивкой из профнастила",
+    category: "Ограждение",
+    location: "Промышленный объект",
+    year: "2025",
+    images: [],
+  },
 ]
 
 function ProjectCard({ project, index, isRevealed }: { project: typeof projects[0]; index: number; isRevealed: boolean }) {
