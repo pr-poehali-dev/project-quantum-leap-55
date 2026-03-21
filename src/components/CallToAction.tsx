@@ -8,7 +8,7 @@ export function CallToAction() {
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-primary-foreground/60 text-sm tracking-[0.3em] uppercase mb-8">Получить расчёт</p>
 
-          <h2 className="text-3xl md:text-4xl lg:text-6xl font-medium leading-[1.1] tracking-tight mb-8 text-balance">
+          <h2 className="md:text-4xl lg:text-6xl leading-[1.1] tracking-tight mb-8 text-balance text-6xl font-thin">
             Готовы построить
             <br />
             что-то <HighlightedText>надёжное</HighlightedText>?
