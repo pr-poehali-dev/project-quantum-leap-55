@@ -138,7 +138,7 @@ export function Philosophy() {
                     <div className="flex gap-6">
                       <span className="text-muted-foreground/50 text-sm font-medium">0{index + 1}</span>
                       <div>
-                        <h3 className="text-xl font-medium mb-3">{item.title}</h3>
+                        <h3 className="text-xl font-medium mb-3 text-lime-600">{item.title}</h3>
                         <p className="text-muted-foreground leading-relaxed">{item.description}</p>
                       </div>
                     </div>
