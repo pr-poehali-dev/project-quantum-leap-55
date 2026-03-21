@@ -42,7 +42,7 @@ export function Header() {
       )}
     >
       <nav className="container mx-auto px-6 flex items-center justify-between md:px-[24]">
-        <a href="/" className="flex items-center gap-2 group" onClick={scrollToTop}>
+        <a href="/" className="flex items-center gap-2 group">
           <img
             src="https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/44f689af-75b7-4fd8-b1b9-6d1422739045.jpg"
             alt="СК Высота"
@@ -52,11 +52,11 @@ export function Header() {
 
         <ul className="hidden md:flex items-center gap-10 text-sm tracking-wide">
           {[
-            { label: "Главная", href: "#hero" },
-            { label: "О компании", href: "#about" },
-            { label: "Проекты", href: "#projects" },
-            { label: "Услуги", href: "#services" },
-            { label: "Вопросы", href: "#faq" },
+            { label: "Главная", href: "/#hero" },
+            { label: "О компании", href: "/#about" },
+            { label: "Проекты", href: "/#projects" },
+            { label: "Услуги", href: "/#services" },
+            { label: "Вопросы", href: "/#faq" },
             { label: "Контакты", href: "/contacts" },
           ].map((item) => (
             <li key={item.label}>
@@ -118,11 +118,11 @@ export function Header() {
         <div className="container mx-auto px-6">
           <ul className="flex flex-col gap-6 mb-8">
             {[
-              { label: "Главная", href: "#hero" },
-              { label: "О компании", href: "#about" },
-              { label: "Проекты", href: "#projects" },
-              { label: "Услуги", href: "#services" },
-              { label: "Вопросы", href: "#faq" },
+              { label: "Главная", href: "/#hero" },
+              { label: "О компании", href: "/#about" },
+              { label: "Проекты", href: "/#projects" },
+              { label: "Услуги", href: "/#services" },
+              { label: "Вопросы", href: "/#faq" },
               { label: "Контакты", href: "/contacts" },
             ].map((item) => (
               <li key={item.label}>
