@@ -62,6 +62,14 @@ const projects = [
     year: "2025",
     images: ["https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/463ac9eb-51d8-4451-9f2c-06fca480ac75.jpg"],
   },
+  {
+    id: 6,
+    title: "Строительство современного офиса для агрохолдинга — от котлована до ввода в эксплуатацию",
+    category: "Общестроительные работы",
+    location: "Агрохолдинг",
+    year: "2025",
+    images: [],
+  },
 ]
 
 function ProjectCard({ project, index, isRevealed }: { project: typeof projects[0]; index: number; isRevealed: boolean }) {
