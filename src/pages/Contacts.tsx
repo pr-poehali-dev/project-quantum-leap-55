@@ -94,48 +94,56 @@ export default function Contacts() {
   const [modalManager, setModalManager] = useState<typeof managers[0] | null>(null)
 
   return (
-    <div className="min-h-screen bg-background">
+    <div
+      className="min-h-screen bg-background"
+      style={{
+        backgroundImage: "url('https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/54b87bdd-1f9e-409b-930f-5897357aaa3c.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <Header />
 
       <main className="pt-40 pb-32">
         <div className="container mx-auto px-6 md:px-12">
           <div className="max-w-3xl mb-16">
-            <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-6">Контакты</p>
-            <h1 className="text-6xl font-thin leading-[1.15] tracking-tight mb-6">
+            <p className="text-white/50 text-sm tracking-[0.3em] uppercase mb-6">Контакты</p>
+            <h1 className="text-6xl font-thin leading-[1.15] tracking-tight mb-6 text-white">
               Свяжитесь с нами
             </h1>
-            <p className="text-muted-foreground text-lg leading-relaxed">
+            <p className="text-white/60 text-lg leading-relaxed">
               Наши специалисты готовы ответить на вопросы и подготовить расчёт для вашего проекта.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {managers.map((manager) => (
-              <div key={manager.email} className="border border-border p-8 flex flex-col gap-5">
-                <div className="w-20 h-20 bg-foreground/10 flex items-center justify-center">
+              <div key={manager.email} className="border border-white/10 bg-white/5 backdrop-blur-sm p-8 flex flex-col gap-5">
+                <div className="w-20 h-20 bg-white/10 flex items-center justify-center">
                   {manager.photo ? (
                     <img src={manager.photo} alt={manager.name} className="w-full h-full object-cover" />
                   ) : (
-                    <Icon name="User" size={32} className="text-foreground/40" />
+                    <Icon name="User" size={32} className="text-white/40" />
                   )}
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-medium mb-1">{manager.name}</h3>
-                  <p className="text-muted-foreground text-sm">{manager.role}</p>
-                  <p className="text-muted-foreground text-sm">{manager.specialty}</p>
+                  <h3 className="text-xl font-medium mb-1 text-white">{manager.name}</h3>
+                  <p className="text-white/50 text-sm">{manager.role}</p>
+                  <p className="text-white/50 text-sm">{manager.specialty}</p>
                 </div>
 
                 <div className="flex flex-col gap-3">
-                  <a href={manager.phoneHref} className="inline-flex items-center gap-2 text-sm hover:text-foreground/60 transition-colors">
+                  <a href={manager.phoneHref} className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors">
                     <Icon name="Phone" size={16} />
                     {manager.phone}
                   </a>
-                  <a href={`mailto:${manager.email}`} className="inline-flex items-center gap-2 text-sm hover:text-foreground/60 transition-colors">
+                  <a href={`mailto:${manager.email}`} className="inline-flex items-center gap-2 text-sm text-white/80 hover:text-white transition-colors">
                     <Icon name="Mail" size={16} />
                     {manager.email}
                   </a>
-                  <a href={manager.whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-green-600 hover:text-green-700 transition-colors">
+                  <a href={manager.whatsapp} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-green-400 hover:text-green-300 transition-colors">
                     <Icon name="MessageCircle" size={16} />
                     WhatsApp
                   </a>
@@ -143,7 +151,7 @@ export default function Contacts() {
 
                 <button
                   onClick={() => setModalManager(manager)}
-                  className="mt-auto border border-foreground text-sm px-5 py-2.5 hover:bg-foreground hover:text-white transition-all duration-300"
+                  className="mt-auto border border-white/30 text-white text-sm px-5 py-2.5 hover:bg-white hover:text-foreground transition-all duration-300"
                 >
                   Задать вопрос
                 </button>
@@ -151,22 +159,22 @@ export default function Contacts() {
             ))}
           </div>
 
-          <div className="border-t border-border pt-16 grid md:grid-cols-3 gap-10">
+          <div className="border-t border-white/10 pt-16 grid md:grid-cols-3 gap-10">
             <div>
-              <p className="text-sm tracking-[0.2em] uppercase text-muted-foreground mb-3">Email</p>
-              <a href="mailto:sk.visota90@mail.ru" className="text-lg hover:text-foreground/60 transition-colors">
+              <p className="text-sm tracking-[0.2em] uppercase text-white/40 mb-3">Email</p>
+              <a href="mailto:sk.visota90@mail.ru" className="text-lg text-white hover:text-white/70 transition-colors">
                 sk.visota90@mail.ru
               </a>
             </div>
             <div>
-              <p className="text-sm tracking-[0.2em] uppercase text-muted-foreground mb-3">Телефон</p>
-              <a href="tel:+78001234567" className="text-lg hover:text-foreground/60 transition-colors">
+              <p className="text-sm tracking-[0.2em] uppercase text-white/40 mb-3">Телефон</p>
+              <a href="tel:+78001234567" className="text-lg text-white hover:text-white/70 transition-colors">
                 +7 (800) 123-45-67
               </a>
             </div>
             <div>
-              <p className="text-sm tracking-[0.2em] uppercase text-muted-foreground mb-3">Режим работы</p>
-              <p className="text-lg">Пн–Пт, 9:00–18:00</p>
+              <p className="text-sm tracking-[0.2em] uppercase text-white/40 mb-3">Режим работы</p>
+              <p className="text-lg text-white">Пн–Пт, 9:00–18:00</p>
             </div>
           </div>
         </div>
