@@ -40,7 +40,7 @@ export function CallToAction() {
               <p className="text-primary-foreground/60 text-sm">реализованных объектов</p>
             </div>
             <div>
-              <p className="text-3xl font-medium text-primary-foreground mb-2">10 лет</p>
+              <p className="text-3xl font-medium text-primary-foreground mb-2">6 лет</p>
               <p className="text-primary-foreground/60 text-sm">опыта в металлоконструкциях</p>
             </div>
             <div>
