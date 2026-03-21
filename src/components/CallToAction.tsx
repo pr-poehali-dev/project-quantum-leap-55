@@ -1,8 +1,67 @@
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, Phone } from "lucide-react"
 import { HighlightedText } from "./HighlightedText"
+import { useState } from "react"
+
+function CallbackModal({ onClose }: { onClose: () => void }) {
+  const [phone, setPhone] = useState("")
+  const [name, setName] = useState("")
+  const [sent, setSent] = useState(false)
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const subject = encodeURIComponent("Заказ обратного звонка")
+    const body = encodeURIComponent(`Имя: ${name}\nТелефон: ${phone}`)
+    window.location.href = `mailto:sk.visota90@mail.ru?subject=${subject}&body=${body}`
+    setSent(true)
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4" onClick={onClose}>
+      <div className="bg-white max-w-md w-full p-8 relative" onClick={(e) => e.stopPropagation()}>
+        <button onClick={onClose} className="absolute top-4 right-4 text-foreground/40 hover:text-foreground transition-colors text-2xl leading-none">&times;</button>
+        {sent ? (
+          <div className="text-center py-8">
+            <Phone className="w-12 h-12 mx-auto mb-4 text-green-500" />
+            <h3 className="text-xl font-medium mb-2">Заявка отправлена!</h3>
+            <p className="text-muted-foreground text-sm">Мы перезвоним вам в ближайшее время.</p>
+          </div>
+        ) : (
+          <>
+            <h3 className="text-xl font-medium mb-1">Обратный звонок</h3>
+            <p className="text-muted-foreground text-sm mb-6">Оставьте номер — мы перезвоним в течение 15 минут</p>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <input
+                type="text"
+                required
+                placeholder="Ваше имя"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="border border-border px-4 py-3 text-sm outline-none focus:border-foreground transition-colors"
+              />
+              <input
+                type="tel"
+                required
+                placeholder="+7 (___) ___-__-__"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="border border-border px-4 py-3 text-sm outline-none focus:border-foreground transition-colors"
+              />
+              <button type="submit" className="bg-foreground text-white px-6 py-3 text-sm hover:bg-foreground/80 transition-colors">
+                Перезвоните мне
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
 
 export function CallToAction() {
+  const [showModal, setShowModal] = useState(false)
+
   return (
+    <>
     <section id="contact" className="py-32 md:py-29 bg-foreground text-primary-foreground">
       <div className="container mx-auto px-6 md:px-12">
         <div className="max-w-4xl mx-auto text-center">
@@ -26,6 +85,13 @@ export function CallToAction() {
             >
               +7 (800) 123-45-67
             </a>
+            <button
+              onClick={() => setShowModal(true)}
+              className="inline-flex items-center justify-center gap-2 border border-amber-400/60 text-amber-300 px-8 py-4 text-sm tracking-wide hover:bg-amber-400/10 transition-colors duration-300"
+            >
+              <Phone className="w-4 h-4" />
+              Заказать звонок
+            </button>
           </div>
 
           <div className="mt-16 pt-16 border-t border-primary-foreground/10 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
@@ -45,5 +111,7 @@ export function CallToAction() {
         </div>
       </div>
     </section>
+    {showModal && <CallbackModal onClose={() => setShowModal(false)} />}
+    </>
   )
 }
