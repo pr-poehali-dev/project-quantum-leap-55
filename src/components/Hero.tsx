@@ -140,7 +140,7 @@ export function Hero() {
           ></h1>
         </div>
 
-        <p className="text-center text-white/60 text-sm tracking-[0.3em] uppercase mt-16 mb-4">Почему нам доверяют</p>
+        <p className="text-center text-white/60 text-sm tracking-[0.3em] uppercase mt-4 md:mt-16 mb-4">Почему нам доверяют</p>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 px-4 md:px-0">
           {[
             { icon: "HardHat", label: "Свои бригады" },
