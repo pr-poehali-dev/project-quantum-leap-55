@@ -10,7 +10,7 @@ const managers = [
     phone: "+7 909 153-00-33",
     phoneHref: "tel:+79091530033",
     whatsapp: "https://wa.me/79091530033",
-    email: "director@example.ru",
+    email: "sk.visota90@mail.ru",
     photo: "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/ba9d3e6b-d4c2-4ea8-b3dd-0ce86bc0df6a.jpg",
   },
   {
