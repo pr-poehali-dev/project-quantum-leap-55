@@ -41,11 +41,11 @@ export function CallToAction() {
             </div>
             <div>
               <p className="text-3xl font-medium text-primary-foreground mb-2">6 лет</p>
-              <p className="text-primary-foreground/60 text-sm">опыта в металлоконструкциях</p>
+              <p className="text-primary-foreground/60 text-sm">экспертного опыта</p>
             </div>
             <div>
               <p className="text-3xl font-medium text-primary-foreground mb-2">100%</p>
-              <p className="text-primary-foreground/60 text-sm">собственное производство</p>
+              <p className="text-primary-foreground/60 text-sm">результат </p>
             </div>
           </div>
         </div>
