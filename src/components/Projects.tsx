@@ -7,7 +7,7 @@ const projects = [
     title: "РВС-3500 с системой разогрева и подачи",
     category: "Резервуар вертикальный стальной",
     location: "Производственный объект",
-    year: "2024",
+    year: "2025",
     images: [
       "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/4c65f0aa-4fe8-4439-9454-bf00f983b4e4.jpg",
       "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/f4d67a63-531c-480b-92dc-1526e55cb510.jpg",
