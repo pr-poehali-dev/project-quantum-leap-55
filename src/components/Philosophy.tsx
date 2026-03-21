@@ -83,7 +83,7 @@ export function Philosophy() {
             <h2 className="text-6xl md:text-6xl font-medium leading-[1.15] tracking-tight mb-8 text-balance lg:text-8xl">
               Строим с
               <br />
-              <HighlightedText>умом</HighlightedText>
+              умом
             </h2>
 
             {/* Табы */}
