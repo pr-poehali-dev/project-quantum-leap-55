@@ -131,11 +131,11 @@ export function Hero() {
         className="container mx-auto px-6 md:px-12 lg:pt-0 relative z-10 pb-0 pl-1 pr-1 pt-8 md:pt-0 -mt-32"
       >
         <div className="text-center">
-          <p className="tracking-[0.3em] uppercase mb-0 text-[#ffffff] text-center text-3xl font-extrabold">Общестроительные работы  · Производство и монтаж металлоконструкций</p>
+          <p className="tracking-[0.3em] uppercase mb-0 text-[#ffffff] text-center font-extrabold text-3xl">Общестроительные работы  · Производство и монтаж металлоконструкций</p>
 
           <h1
             ref={titleRef}
-            className="text-center mb-0 tracking-tight leading-[0.9] lg:text-8xl text-4xl text-[#ffffff] font-normal"
+            className="text-center mb-0 tracking-tight leading-[0.9] lg:text-8xl text-[#ffffff] font-light text-4xl"
           >Строительная компания ВЫСОТА</h1>
         </div>
       </div>
