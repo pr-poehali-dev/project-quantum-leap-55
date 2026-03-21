@@ -60,7 +60,7 @@ const projects = [
     category: "Ограждение",
     location: "Промышленный объект",
     year: "2025",
-    images: [],
+    images: ["https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/463ac9eb-51d8-4451-9f2c-06fca480ac75.jpg"],
   },
 ]
 
