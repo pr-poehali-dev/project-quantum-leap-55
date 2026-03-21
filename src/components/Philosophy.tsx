@@ -124,9 +124,7 @@ export function Philosophy() {
 
             {activeTab === "about" && (
               <div className="space-y-6">
-                <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-12">
-                  СК ВЫСОТА — это производственная компания с собственными мощностями и опытной бригадой монтажников. Мы берёмся за проекты любой сложности и доводим их до результата.
-                </p>
+                <p className="text-muted-foreground text-lg leading-relaxed max-w-md mb-12">СК ВЫСОТА — это строительная компания с собственными производственными мощностями и опытными бригадами монтажников. Мы реализуем проекты любой сложности с гарантией результата.</p>
                 {philosophyItems.map((item, index) => (
                   <div
                     key={item.title}
