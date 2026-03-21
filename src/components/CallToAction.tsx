@@ -6,17 +6,9 @@ export function CallToAction() {
     <section id="contact" className="py-32 md:py-29 bg-foreground text-primary-foreground">
       <div className="container mx-auto px-6 md:px-12">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="tracking-[0.3em] uppercase mb-8 text-xl text-center text-amber-300">
+          <p className="tracking-[0.3em] uppercase mb-8 text-xl text-center text-amber-300">Для наших клиентов предусмотрена бесплатная консультация в телефонном разговоре или мессенджере, после короткого телефонного интервью мы можем дать Вам Ориентировочный диапазон стоимости (±15 %), и срока выполнения работ.</p>
 
-Бесплатная консультация в телефонном разговоре или мессенджере, получив исходную информацию  по вопросам нашей компетенции.
-После короткого телефонного интервью мы можем дать Вам Ориентировочный диапазон стоимости (±15 %), и срока выполнения работ.
-</p>
-
-          <h2 className="md:text-4xl lg:text-6xl leading-[1.1] tracking-tight mb-8 text-balance text-6xl font-thin">
-            Готовы построить
-            <br />
-            что-то <HighlightedText>надёжное</HighlightedText>?
-          </h2>
+          <h2 className="md:text-4xl lg:text-6xl leading-[1.1] tracking-tight mb-8 text-balance text-6xl font-thin"></h2>
 
           <p className="text-primary-foreground/70 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
             Расскажите нам о вашем проекте — ангар, резервуар или забор. Наш инженер подготовит расчёт в течение 1–2 рабочих дней бесплатно.
