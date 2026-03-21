@@ -30,7 +30,7 @@ const projects = [
     title: "РВС для битума с разогревом",
     category: "Резервуар горизонтальный стальной",
     location: "Дорожно-строительная компания",
-    year: "2023",
+    year: "2025",
     caption: "Монтаж системы разогрева битума в РВС 3500",
     images: ["https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/5a43fefe-bb3a-4d9a-bf07-6ac297a69778.jpg"],
   },
