@@ -5,6 +5,16 @@ import { useState } from "react"
 const managers = [
   {
     name: "Иван Иванов",
+    role: "Исполнительный директор",
+    specialty: "Управление проектами",
+    phone: "+7 800 123-45-67",
+    phoneHref: "tel:+78001234567",
+    whatsapp: "https://wa.me/78001234567",
+    email: "director@example.ru",
+    photo: null,
+  },
+  {
+    name: "Иван Иванов",
     role: "Руководитель отдела продаж",
     specialty: "Малоэтажное строительство",
     phone: "+7 800 123-45-67",
