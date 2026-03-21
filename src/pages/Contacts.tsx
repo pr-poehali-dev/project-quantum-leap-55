@@ -4,14 +4,14 @@ import { useState } from "react"
 
 const managers = [
   {
-    name: "Иван Иванов",
+    name: "Георгий",
     role: "Исполнительный директор",
     specialty: "Управление проектами",
     phone: "+7 800 123-45-67",
     phoneHref: "tel:+78001234567",
     whatsapp: "https://wa.me/78001234567",
     email: "director@example.ru",
-    photo: null,
+    photo: "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/ba9d3e6b-d4c2-4ea8-b3dd-0ce86bc0df6a.jpg",
   },
   {
     name: "Иван Иванов",
