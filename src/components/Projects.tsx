@@ -41,6 +41,14 @@ const projects = [
       "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/ae95579e-1854-45da-92ea-641da99b3471.jpg",
     ],
   },
+  {
+    id: 4,
+    title: "Ангар (техническое помещение)",
+    category: "Производственный ангар",
+    location: "Промышленный объект",
+    year: "2025",
+    images: [],
+  },
 ]
 
 function ProjectCard({ project, index, isRevealed }: { project: typeof projects[0]; index: number; isRevealed: boolean }) {
