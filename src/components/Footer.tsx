@@ -49,9 +49,7 @@ export function Footer() {
                 <a href="mailto:info@sk-vysota.ru" className="hover:text-foreground transition-colors">sk.visota90@mail.ru</a>
               </li>
               <li>
-                <a href="tel:+78001234567" className="hover:text-foreground transition-colors">
-                  +7 (800) 123-45-67
-                </a>
+                <a href="tel:+78001234567" className="hover:text-foreground transition-colors">+79091530033</a>
               </li>
               <li>
                 <a href="#" className="hover:text-foreground transition-colors">
