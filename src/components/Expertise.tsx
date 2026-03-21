@@ -123,7 +123,13 @@ export function Expertise() {
                   <Icon name={area.icon} className="w-10 h-10 mb-4 text-foreground" strokeWidth={1.25} />
                 </div>
                 <h3 className="text-xl font-medium mb-4">{area.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{area.description}</p>
+                <p className="text-muted-foreground leading-relaxed mb-6">{area.description}</p>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 text-sm px-4 py-2 border border-foreground/20 hover:bg-foreground hover:text-white transition-all duration-300"
+                >
+                  Получить услугу
+                </a>
               </div>
             )
           })}
