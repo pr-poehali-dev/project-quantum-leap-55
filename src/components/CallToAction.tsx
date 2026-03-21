@@ -10,9 +10,7 @@ export function CallToAction() {
 
           <h2 className="md:text-4xl lg:text-6xl leading-[1.1] tracking-tight mb-8 text-balance text-6xl font-thin"></h2>
 
-          <p className="text-primary-foreground/70 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
-            Расскажите нам о вашем проекте — ангар, резервуар или забор. Наш инженер подготовит расчёт в течение 1–2 рабочих дней бесплатно.
-          </p>
+          <p className="text-primary-foreground/70 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto"></p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
