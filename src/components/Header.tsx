@@ -42,13 +42,20 @@ export function Header() {
   }
 
   const openPriceInfo = () => {
-    const faqSection = document.getElementById("faq")
-    if (faqSection) {
-      faqSection.scrollIntoView({ behavior: "smooth" })
+    if (location.pathname !== "/") {
+      navigate("/")
+      setTimeout(() => {
+        document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" })
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent("openFaqItem", { detail: { index: 0 } }))
+        }, 600)
+      }, 300)
+    } else {
+      document.getElementById("faq")?.scrollIntoView({ behavior: "smooth" })
+      setTimeout(() => {
+        window.dispatchEvent(new CustomEvent("openFaqItem", { detail: { index: 0 } }))
+      }, 600)
     }
-    setTimeout(() => {
-      window.dispatchEvent(new CustomEvent("openFaqItem", { detail: { index: 0 } }))
-    }, 600)
   }
 
   return (
