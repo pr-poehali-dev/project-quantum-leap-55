@@ -50,6 +50,7 @@ const projects = [
     images: [
       "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/031631d8-ca7c-4bef-a94e-ded977eaa250.jpg",
       "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/7f067148-3a3f-49ff-8890-b2d9732c8635.jpg",
+      "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/3572c769-3c6c-40bb-a714-a6d35db9d785.jpg",
     ],
   },
 ]
