@@ -135,7 +135,7 @@ export function Hero() {
 
           <h1
             ref={titleRef}
-            className="text-center mb-0 tracking-tight leading-[0.9] lg:text-8xl text-[#ffffff] font-light text-4xl"
+            className="text-center mb-0 tracking-tight leading-[0.9] lg:text-5xl text-[#ffffff] font-normal text-5xl"
           >Строительная компания ВЫСОТА</h1>
         </div>
       </div>
