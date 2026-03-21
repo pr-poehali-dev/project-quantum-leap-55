@@ -31,7 +31,8 @@ const projects = [
     category: "Резервуар горизонтальный стальной",
     location: "Дорожно-строительная компания",
     year: "2023",
-    images: ["/images/hously-4.png"],
+    caption: "Монтаж системы разогрева битума в РВС 3500",
+    images: ["https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/5a43fefe-bb3a-4d9a-bf07-6ac297a69778.jpg"],
   },
 ]
 
@@ -91,6 +92,10 @@ function ProjectCard({ project, index, isRevealed }: { project: typeof projects[
           </>
         )}
       </div>
+
+      {"caption" in project && project.caption && (
+        <p className="text-xs text-muted-foreground italic mb-3 mt-[-8px]">{project.caption}</p>
+      )}
 
       <div className="flex items-start justify-between gap-4">
         <div>
