@@ -68,7 +68,7 @@ const projects = [
     category: "Общестроительные работы",
     location: "Агрохолдинг",
     year: "2024",
-    images: [],
+    images: ["https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/d0f18e7a-256d-47f3-9be7-55eee163afdb.jpg"],
   },
 ]
 
