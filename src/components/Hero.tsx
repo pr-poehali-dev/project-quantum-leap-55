@@ -131,7 +131,7 @@ export function Hero() {
         className="container mx-auto px-6 md:px-12 lg:pt-0 relative z-10 pb-0 pl-1 pr-1 pt-8 md:pt-0 -mt-32"
       >
         <div className="text-center">
-          <p className="text-sm tracking-[0.3em] uppercase text-center text-secondary mb-0">Общестроительные работы  · Производство и монтаж металлоконструкций</p>
+          <p className="tracking-[0.3em] uppercase text-center text-secondary mb-0 text-2xl font-medium">Общестроительные работы  · Производство и монтаж металлоконструкций</p>
 
           <h1
             ref={titleRef}
@@ -139,7 +139,7 @@ export function Hero() {
           >
             {"СК ВЫСОТА"}
             <br />
-            <span className="text-orange-200">{"Строим надёжно"}</span>
+            <span className="font-thin text-gray-100 text-7xl"></span>
           </h1>
         </div>
       </div>
