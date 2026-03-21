@@ -191,19 +191,19 @@ export default function Contacts() {
               </div>
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">КПП</p>
-                <p className="text-amber-50">000000000</p>
+                <p className="text-amber-50">773301001</p>
               </div>
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">ОГРН</p>
-                <p className="text-amber-50">0000000000000</p>
+                <p className="text-amber-50">1257700319887</p>
               </div>
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">ОКПО</p>
-                <p className="text-amber-50">00000000</p>
+                <p className="text-amber-50"></p>
               </div>
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">Юридический адрес</p>
-                <p className="text-amber-50">000000, г. Город, ул. Улица, д. 0, офис 0</p>
+                <p className="text-amber-50">Юр адрес: 125480, г. Город Москва, вн. тер. г. муниципальный округ Северное Тушино, ул. Героев Панфиловцев д.16 к1 пом. 17/311</p>
               </div>
             </div>
           </div>
