@@ -149,7 +149,7 @@ export function Hero() {
             { icon: "ClipboardCheck", label: "Контроль каждого этапа" },
             { icon: "ShieldCheck", label: "Гарантия" },
           ].map((item) => (
-            <div key={item.label} className="flex flex-col items-center gap-3 border border-white/20 bg-white/5 backdrop-blur-sm p-5 text-center">
+            <div key={item.label} className="flex flex-col items-center gap-3 border border-white/10 bg-white/[0.02] backdrop-blur-sm p-5 text-center">
               <Icon name={item.icon} size={28} className="text-amber-400" />
               <span className="text-white text-sm font-medium leading-tight">{item.label}</span>
             </div>
