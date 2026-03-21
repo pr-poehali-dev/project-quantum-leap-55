@@ -97,22 +97,13 @@ export default function Contacts() {
     <div className="min-h-screen bg-background">
       <Header />
 
-      {/* Hero с затемнённым фоном */}
-      <div className="relative h-80 flex items-end overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: "url('https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/c43958da-3d8c-4e79-bcd8-d35a8ec2ffc9.jpg')" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30" />
-        <div className="relative container mx-auto px-6 md:px-12 pb-12">
-          <p className="text-white/60 text-sm tracking-[0.3em] uppercase mb-3">Контакты</p>
-          <h1 className="text-6xl font-thin leading-tight text-white">Свяжитесь с нами</h1>
-        </div>
-      </div>
-
-      <main className="pb-32">
+      <main className="pt-40 pb-32">
         <div className="container mx-auto px-6 md:px-12">
-          <div className="max-w-3xl mb-16 pt-14">
+          <div className="max-w-3xl mb-16">
+            <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-6">Контакты</p>
+            <h1 className="text-6xl font-thin leading-[1.15] tracking-tight mb-6">
+              Свяжитесь с нами
+            </h1>
             <p className="text-muted-foreground text-lg leading-relaxed">
               Наши специалисты готовы ответить на вопросы и подготовить расчёт для вашего проекта.
             </p>
