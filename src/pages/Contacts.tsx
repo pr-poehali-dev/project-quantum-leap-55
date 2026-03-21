@@ -187,7 +187,7 @@ export default function Contacts() {
               </div>
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">ИНН</p>
-                <p className="text-amber-50">0000000000</p>
+                <p className="text-amber-50">7733471613</p>
               </div>
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">КПП</p>
