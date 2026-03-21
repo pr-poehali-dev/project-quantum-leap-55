@@ -35,7 +35,7 @@ const projects = [
     category: "Резервуар горизонтальный стальной",
     location: "Дорожно-строительная компания",
     year: "2025",
-    images: ["https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/5a43fefe-bb3a-4d9a-bf07-6ac297a69778.jpg"],
+    images: ["https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/f292eeb4-34aa-42b7-9810-cf46564c800d.jpg"],
   },
 ]
 
