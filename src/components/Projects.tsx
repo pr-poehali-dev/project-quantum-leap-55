@@ -100,9 +100,7 @@ function ProjectCard({ project, index, isRevealed }: { project: typeof projects[
       <div className="flex items-start justify-between gap-4">
         <div>
           <h3 className="text-xl font-medium mb-2 group-hover:underline underline-offset-4">{project.title}</h3>
-          <p className="text-muted-foreground text-sm">
-            {project.category} · {project.location}
-          </p>
+          <p className="text-muted-foreground text-sm"></p>
         </div>
         <span className="text-muted-foreground/60 text-sm">{project.year}</span>
       </div>
