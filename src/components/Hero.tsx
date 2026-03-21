@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { ArrowDown } from "lucide-react"
+import Icon from "@/components/ui/icon"
 
 export function Hero() {
   const contentRef = useRef<HTMLDivElement>(null)
@@ -137,6 +138,21 @@ export function Hero() {
             ref={titleRef}
             className="text-center mb-0 tracking-tight leading-[0.9] lg:text-5xl text-3xl text-slate-100 font-normal"
           ></h1>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-16 px-4 md:px-0">
+          {[
+            { icon: "HardHat", label: "Свои бригады" },
+            { icon: "Factory", label: "Собственное производство" },
+            { icon: "FileText", label: "Работаем по договору" },
+            { icon: "ClipboardCheck", label: "Контроль каждого этапа" },
+            { icon: "ShieldCheck", label: "Гарантия" },
+          ].map((item) => (
+            <div key={item.label} className="flex flex-col items-center gap-3 border border-white/20 bg-white/5 backdrop-blur-sm p-5 text-center">
+              <Icon name={item.icon} size={28} className="text-amber-400" />
+              <span className="text-white text-sm font-medium leading-tight">{item.label}</span>
+            </div>
+          ))}
         </div>
       </div>
 
