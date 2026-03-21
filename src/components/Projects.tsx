@@ -47,7 +47,10 @@ const projects = [
     category: "Производственный ангар",
     location: "Промышленный объект",
     year: "2025",
-    images: ["https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/031631d8-ca7c-4bef-a94e-ded977eaa250.jpg"],
+    images: [
+      "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/031631d8-ca7c-4bef-a94e-ded977eaa250.jpg",
+      "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/7f067148-3a3f-49ff-8890-b2d9732c8635.jpg",
+    ],
   },
 ]
 
