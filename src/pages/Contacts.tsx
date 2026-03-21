@@ -159,7 +159,7 @@ export default function Contacts() {
             ))}
           </div>
 
-          <div className="border-t border-amber-200/10 pt-16 grid md:grid-cols-3 gap-10">
+          <div className="border-t border-amber-200/10 pt-16 grid md:grid-cols-3 gap-10 mb-16">
             <div>
               <p className="text-sm tracking-[0.2em] uppercase text-amber-300/40 mb-3">Email</p>
               <a href="mailto:sk.visota90@mail.ru" className="text-lg text-amber-50 hover:text-amber-200 transition-colors">
@@ -175,6 +175,36 @@ export default function Contacts() {
             <div>
               <p className="text-sm tracking-[0.2em] uppercase text-amber-300/40 mb-3">Режим работы</p>
               <p className="text-lg text-amber-50">Пн–Пт, 9:00–18:00</p>
+            </div>
+          </div>
+
+          <div className="border-t border-amber-200/10 pt-16">
+            <p className="text-sm tracking-[0.2em] uppercase text-amber-300/40 mb-8">Реквизиты СК ВЫСОТА</p>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div>
+                <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">Полное наименование</p>
+                <p className="text-amber-50">ООО «Строительная компания ВЫСОТА»</p>
+              </div>
+              <div>
+                <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">ИНН</p>
+                <p className="text-amber-50">0000000000</p>
+              </div>
+              <div>
+                <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">КПП</p>
+                <p className="text-amber-50">000000000</p>
+              </div>
+              <div>
+                <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">ОГРН</p>
+                <p className="text-amber-50">0000000000000</p>
+              </div>
+              <div>
+                <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">ОКПО</p>
+                <p className="text-amber-50">00000000</p>
+              </div>
+              <div>
+                <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">Юридический адрес</p>
+                <p className="text-amber-50">000000, г. Город, ул. Улица, д. 0, офис 0</p>
+              </div>
             </div>
           </div>
         </div>
