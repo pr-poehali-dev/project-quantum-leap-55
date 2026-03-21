@@ -11,9 +11,7 @@ export function Footer() {
                 className="h-14 w-auto object-contain"
               />
             </a>
-            <p className="text-muted-foreground leading-relaxed max-w-sm">
-              Производство и монтаж ангаров, стальных резервуаров и заборов. Всё своими силами — без посредников и с гарантией качества.
-            </p>
+            <p className="text-muted-foreground leading-relaxed max-w-sm"></p>
           </div>
 
           <div>
