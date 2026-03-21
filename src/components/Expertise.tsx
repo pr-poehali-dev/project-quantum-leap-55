@@ -4,28 +4,64 @@ import Icon from "@/components/ui/icon"
 
 const expertiseAreas = [
   {
-    title: "Ангары",
-    description:
-      "Проектируем и монтируем ангары любого типа и назначения: для хранения зерна и техники в агрохолдингах, складские комплексы для бизнеса, производственные помещения. Любые размеры и конфигурации.",
-    icon: "Warehouse",
+    title: "Монтаж сборных железобетонных конструкций",
+    description: "Панели, плиты, балки, колонны, пространственные блок-модули.",
+    icon: "Layers",
   },
   {
-    title: "Резервуары РВС и РГС",
-    description:
-      "Производство и монтаж вертикальных и горизонтальных стальных резервуаров с системами подогрева, забора и подачи. Для битума, нефтепродуктов, воды, кислот, удобрений и других жидкостей.",
-    icon: "Cylinder",
+    title: "Металлоконструкции",
+    description: "Изготовление и монтаж каркасов ангаров, промышленных и коммерческих зданий. Сварка, антикоррозийная защита, огнезащитная обработка.",
+    icon: "Wrench",
   },
   {
-    title: "Стальные заборы",
-    description:
-      "Изготовление и установка заборов из профлиста и трубы различных типов. Подходит для промышленных предприятий, агрохозяйств и частных территорий. Долговечно, надёжно, эстетично.",
+    title: "Земляные работы",
+    description: "Разработка котлованов и траншей, устройство насыпей, планировка площадок.",
+    icon: "Shovel",
+  },
+  {
+    title: "Фундаменты и подземные конструкции",
+    description: "Свайные, ленточные, плитные и ростверковые фундаменты. Гидро- и теплоизоляция подземных частей, подвальные и цокольные стены, подпорные стены.",
+    icon: "Building2",
+  },
+  {
+    title: "Монолитные железобетонные работы",
+    description: "Каркасы, плиты перекрытий, колонны, ригели, лестничные марши, шахты лифтов. Несъёмная и классическая опалубка, уплотнение грунта.",
+    icon: "HardHat",
+  },
+  {
+    title: "Кровельные работы",
+    description: "Плоские и скатные крыши: рулонные, мембранные, черепичные, фальцевые, мягкие. Утепление, паро- и гидроизоляция, водоотвод.",
+    icon: "Home",
+  },
+  {
+    title: "Фасадные работы",
+    description: "Мокрые и вентилируемые фасады, утепление, облицовка камнем, керамикой, композитом, кассетами. Витражные системы, окна и двери.",
+    icon: "PanelTop",
+  },
+  {
+    title: "Тепло-, гидро-, звуко- и пароизоляция",
+    description: "Наружные ограждающие конструкции, крыши, перекрытия и перегородки.",
+    icon: "Shield",
+  },
+  {
+    title: "Черновые и чистовые отделочные работы",
+    description: "Стяжки полов, штукатурка, шпаклёвка, шлифовка. Оклейка обоями, окраска, укладка плитки, паркета, ламината. Подвесные и натяжные потолки.",
+    icon: "PaintRoller",
+  },
+  {
+    title: "Внутренние перегородки и стены",
+    description: "Гипсокартон, ГВЛ, СМЛ, металлокассеты, ПГП.",
     icon: "LayoutGrid",
   },
   {
-    title: "Под ключ",
-    description:
-      "Все этапы — проектирование, производство, доставка и монтаж — выполняем самостоятельно. Вы получаете готовый объект без лишних согласований и посредников.",
-    icon: "KeyRound",
+    title: "Благоустройство и озеленение",
+    description: "Тротуары, дороги, бордюры, подпорные стены. Газоны, клумбы, малые архитектурные формы, дренаж.",
+    icon: "Trees",
+  },
+  {
+    title: "Инженерные системы",
+    description: "Электроснабжение, внутреннее и наружное водоснабжение, канализация, отопление, пожарная безопасность.",
+    icon: "Zap",
   },
 ]
 
@@ -44,7 +80,7 @@ export function Expertise() {
           }
         })
       },
-      { threshold: 0.2 },
+      { threshold: 0.1 },
     )
 
     itemRefs.current.forEach((ref) => {
@@ -60,16 +96,16 @@ export function Expertise() {
         <div className="max-w-3xl mb-20">
           <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-6">Наши услуги</p>
           <h2 className="text-6xl font-medium leading-[1.15] tracking-tight mb-6 text-balance lg:text-8xl">
-            <HighlightedText>Производство</HighlightedText> и монтаж
+            <HighlightedText>Строительство</HighlightedText> и монтаж
             <br />
-            металлоконструкций
+            под ключ
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
             Работаем с промышленными предприятиями, агрохолдингами и частными заказчиками. Гарантируем качество на каждом этапе.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-x-12 gap-y-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
           {expertiseAreas.map((area, index) => {
             return (
               <div
@@ -81,16 +117,9 @@ export function Expertise() {
                 className={`relative pl-8 border-l border-border transition-all duration-700 ${
                   visibleItems.includes(index) ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
                 }`}
-                style={{ transitionDelay: `${index * 150}ms` }}
+                style={{ transitionDelay: `${(index % 3) * 150}ms` }}
               >
-                <div
-                  className={`transition-all duration-1000 ${
-                    visibleItems.includes(index) ? "animate-draw-stroke" : ""
-                  }`}
-                  style={{
-                    transitionDelay: `${index * 150}ms`,
-                  }}
-                >
+                <div className={`transition-all duration-1000 ${visibleItems.includes(index) ? "animate-draw-stroke" : ""}`}>
                   <Icon name={area.icon} className="w-10 h-10 mb-4 text-foreground" strokeWidth={1.25} />
                 </div>
                 <h3 className="text-xl font-medium mb-4">{area.title}</h3>
