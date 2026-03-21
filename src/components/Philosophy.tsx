@@ -95,9 +95,7 @@ export function Philosophy() {
                     ? "border-foreground text-foreground"
                     : "border-transparent text-muted-foreground hover:text-foreground"
                 }`}
-              >
-                О компании
-              </button>
+              >Наши приоритеты</button>
               <button
                 onClick={() => setActiveTab("history")}
                 className={`px-4 py-2.5 text-sm font-medium transition-all duration-200 border-b-2 -mb-px ${
