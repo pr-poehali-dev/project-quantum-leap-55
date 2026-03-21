@@ -199,11 +199,11 @@ export default function Contacts() {
               </div>
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">Фактический адрес</p>
-                <p className="text-amber-50">000000, г. Город, ул. Улица, д. 0, офис 0</p>
+                <p className="text-amber-50">108811, г. Москва, км 22-й (Киевское ш.), д.4 стр.1 корпус А, подъезд 2, этаж 7, ком. 713а</p>
               </div>
               <div>
                 <p className="text-xs tracking-[0.2em] uppercase text-amber-300/40 mb-2">Юридический адрес</p>
-                <p className="text-amber-50">Юр адрес: 125480, г. Город Москва, вн. тер. г. муниципальный округ Северное Тушино, ул. Героев Панфиловцев д.16 к1 пом. 17/311</p>
+                <p className="text-amber-50">125480, г. Город Москва, вн. тер. г. муниципальный округ Северное Тушино, ул. Героев Панфиловцев д.16 к1 пом. 17/311</p>
               </div>
             </div>
           </div>
