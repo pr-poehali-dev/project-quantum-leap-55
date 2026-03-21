@@ -91,7 +91,7 @@ export function Expertise() {
   }, [])
 
   return (
-    <section id="services" ref={sectionRef} className="py-32 md:py-29">
+    <section id="services" ref={sectionRef} className="py-32 md:py-29 relative" style={{ backgroundImage: "url('https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/c738f54c-3177-4845-83d9-29721f99cc42.png')", backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="container mx-auto px-6 md:px-12">
         <div className="max-w-3xl mb-20">
           <p className="text-muted-foreground text-sm tracking-[0.3em] uppercase mb-6">Наши услуги</p>
