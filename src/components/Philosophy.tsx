@@ -175,8 +175,8 @@ export function Philosophy() {
                 </div>
 
                 <blockquote className="mt-12 pt-10 border-t border-border">
-                  <p className="text-xl font-medium leading-snug"></p>
-                  <footer className="mt-4 text-red-500 text-sm tracking-wide uppercase bg-slate-50 rounded-md"></footer>
+                  <p className="text-xl font-medium leading-snug">С уважением,</p>
+                  <footer className="mt-2 text-sm tracking-wide uppercase text-muted-foreground">Основатели СК Высота</footer>
                 </blockquote>
               </div>
             )}
