@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react"
 
 const projects = [
   {
@@ -81,7 +81,103 @@ const projects = [
   },
 ]
 
-function ProjectCard({ project, index, isRevealed }: { project: typeof projects[0]; index: number; isRevealed: boolean }) {
+interface LightboxProps {
+  images: string[]
+  title: string
+  startIndex: number
+  onClose: () => void
+}
+
+function Lightbox({ images, title, startIndex, onClose }: LightboxProps) {
+  const [current, setCurrent] = useState(startIndex)
+
+  const prev = () => setCurrent((i) => (i - 1 + images.length) % images.length)
+  const next = () => setCurrent((i) => (i + 1) % images.length)
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+      if (e.key === "ArrowLeft") prev()
+      if (e.key === "ArrowRight") next()
+    }
+    document.addEventListener("keydown", handleKey)
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.removeEventListener("keydown", handleKey)
+      document.body.style.overflow = ""
+    }
+  }, [])
+
+  return (
+    <div
+      className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center"
+      onClick={onClose}
+    >
+      <button
+        onClick={onClose}
+        className="absolute top-4 right-4 text-white/80 hover:text-white p-2 transition-colors z-10"
+      >
+        <X className="w-7 h-7" />
+      </button>
+
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 text-white/60 text-sm">
+        {current + 1} / {images.length}
+      </div>
+
+      <div
+        className="relative w-full h-full flex items-center justify-center px-12"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={images[current]}
+          alt={title}
+          className="max-w-full max-h-[90vh] object-contain select-none"
+        />
+
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={prev}
+              className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/25 text-white p-3 rounded-full transition-all duration-200"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={next}
+              className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/25 text-white p-3 rounded-full transition-all duration-200"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </>
+        )}
+      </div>
+
+      {images.length > 1 && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={(e) => { e.stopPropagation(); setCurrent(i) }}
+              className={`h-1.5 rounded-full transition-all duration-200 ${i === current ? "bg-white w-5" : "bg-white/40 w-1.5"}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function ProjectCard({
+  project,
+  index,
+  isRevealed,
+  onImageClick,
+}: {
+  project: typeof projects[0]
+  index: number
+  isRevealed: boolean
+  onImageClick: (imageIndex: number) => void
+}) {
   const [currentImage, setCurrentImage] = useState(0)
   const hasMultiple = project.images.length > 1
 
@@ -97,7 +193,10 @@ function ProjectCard({ project, index, isRevealed }: { project: typeof projects[
 
   return (
     <article className="group cursor-pointer">
-      <div className="relative overflow-hidden aspect-[4/3] mb-6">
+      <div
+        className="relative overflow-hidden aspect-[4/3] mb-6 cursor-zoom-in"
+        onClick={() => isRevealed && onImageClick(currentImage)}
+      >
         <img
           src={project.images[currentImage]}
           alt={project.title}
@@ -110,6 +209,14 @@ function ProjectCard({ project, index, isRevealed }: { project: typeof projects[
             transition: "transform 1.5s cubic-bezier(0.76, 0, 0.24, 1)",
           }}
         />
+
+        {isRevealed && (
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+            <span className="text-white text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 px-3 py-1.5 rounded-full">
+              Открыть
+            </span>
+          </div>
+        )}
 
         {hasMultiple && isRevealed && (
           <>
@@ -138,8 +245,8 @@ function ProjectCard({ project, index, isRevealed }: { project: typeof projects[
         )}
       </div>
 
-      {"caption" in project && project.caption && (
-        <p className="text-xs text-muted-foreground italic mb-3 mt-[-8px]">{project.caption}</p>
+      {"caption" in project && (project as { caption?: string }).caption && (
+        <p className="text-xs text-muted-foreground italic mb-3 mt-[-8px]">{(project as { caption?: string }).caption}</p>
       )}
 
       <div className="flex items-start justify-between gap-4">
@@ -156,6 +263,7 @@ function ProjectCard({ project, index, isRevealed }: { project: typeof projects[
 export function Projects() {
   const [revealedIds, setRevealedIds] = useState<Set<number>>(new Set())
   const imageRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [lightbox, setLightbox] = useState<{ project: typeof projects[0]; imageIndex: number } | null>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -203,11 +311,21 @@ export function Projects() {
                 project={project}
                 index={index}
                 isRevealed={revealedIds.has(project.id)}
+                onImageClick={(imageIndex) => setLightbox({ project, imageIndex })}
               />
             </div>
           ))}
         </div>
       </div>
+
+      {lightbox && (
+        <Lightbox
+          images={lightbox.project.images}
+          title={lightbox.project.title}
+          startIndex={lightbox.imageIndex}
+          onClose={() => setLightbox(null)}
+        />
+      )}
     </section>
   )
 }
