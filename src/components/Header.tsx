@@ -118,7 +118,7 @@ export function Header() {
         </div>
 
         <button
-          className="md:hidden z-50 transition-colors duration-300 text-white"
+          className="md:hidden z-50 transition-colors duration-300 bg-primary text-white rounded-xl p-2.5 shadow-md"
           aria-label={mobileMenuOpen ? "Закрыть меню" : "Открыть меню"}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
