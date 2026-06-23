@@ -13,16 +13,6 @@ const managers = [
     email: "sk.visota90@mail.ru",
     photo: "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/ba9d3e6b-d4c2-4ea8-b3dd-0ce86bc0df6a.jpg",
   },
-  {
-    name: "Иван Иванов",
-    role: "Руководитель отдела продаж",
-    specialty: "Малоэтажное строительство",
-    phone: "+7 800 123-45-67",
-    phoneHref: "tel:+78001234567",
-    whatsapp: "https://wa.me/78001234567",
-    email: "i.ivanov@example.ru",
-    photo: null,
-  },
 ]
 
 interface ModalProps {
@@ -168,8 +158,8 @@ export default function Contacts() {
             </div>
             <div>
               <p className="text-sm tracking-[0.2em] uppercase text-amber-300/40 mb-3">Телефон</p>
-              <a href="tel:+78001234567" className="text-lg text-amber-50 hover:text-amber-200 transition-colors">
-                +7 (800) 123-45-67
+              <a href="tel:+79091530033" className="text-lg text-amber-50 hover:text-amber-200 transition-colors">
+                +7 909 153-00-33
               </a>
             </div>
             <div>
