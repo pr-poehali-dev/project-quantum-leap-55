@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react"
+import { useNavigate, useLocation } from "react-router-dom"
 import Icon from "@/components/ui/icon"
 import { useChatGPT } from "@/components/extensions/chatgpt-polza/useChatGPT"
 import { CONSULTANT_PROMPT } from "./consultantPrompt"
@@ -23,6 +24,19 @@ export function ChatWidget() {
   const [input, setInput] = useState("")
   const { generate, isLoading } = useChatGPT({ apiUrl: API_URL })
   const listRef = useRef<HTMLDivElement>(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const goToLeadForm = () => {
+    setOpen(false)
+    const scroll = () => document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" })
+    if (location.pathname !== "/") {
+      navigate("/")
+      setTimeout(scroll, 300)
+    } else {
+      scroll()
+    }
+  }
 
   useEffect(() => {
     listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" })
@@ -107,9 +121,20 @@ export function ChatWidget() {
             )}
           </div>
 
+          <div className="px-3 pt-3 bg-white border-t border-black/10">
+            <button
+              type="button"
+              onClick={goToLeadForm}
+              className="w-full inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-2.5 rounded-full border border-green-600 text-green-700 bg-white hover:bg-green-600 hover:text-white transition-colors"
+            >
+              <Icon name="ClipboardList" size={16} />
+              Оставить заявку
+            </button>
+          </div>
+
           <form
             onSubmit={(e) => { e.preventDefault(); send(input) }}
-            className="border-t border-black/10 p-3 flex gap-2 bg-white"
+            className="p-3 flex gap-2 bg-white"
           >
             <input
               value={input}
