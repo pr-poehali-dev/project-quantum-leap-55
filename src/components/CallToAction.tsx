@@ -89,8 +89,8 @@ export function CallToAction() {
     <section id="contact" className="py-32 md:py-29 bg-foreground text-primary-foreground">
       <div className="container mx-auto px-6 md:px-12">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="tracking-[0.3em] uppercase mb-8 text-xl text-center text-amber-300">Бесплатно проконсультируем по вашему объекту.
-После короткого разговора подскажем ориентир по стоимости, срокам и составу работ.</p>
+          <p className="tracking-[0.3em] uppercase mb-8 text-xl text-center text-amber-300">Бесплатно проконсультируем по вашему объекту (проекту).
+После короткого разговора подскажем необходимые технические решения, состав работ, составим предварительный расчёт стоимости и сроков работ.</p>
 
           <h2 className="md:text-4xl lg:text-6xl leading-[1.1] tracking-tight mb-8 text-balance text-6xl font-thin"></h2>
 
