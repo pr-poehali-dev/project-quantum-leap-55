@@ -49,16 +49,6 @@ export function Footer() {
               <li>
                 <a href="tel:+79091530033" className="hover:text-foreground transition-colors">+7 909 153-00-33</a>
               </li>
-              <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  Телеграм
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  ВКонтакте
-                </a>
-              </li>
             </ul>
           </div>
         </div>
