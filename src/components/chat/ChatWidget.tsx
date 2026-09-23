@@ -67,6 +67,8 @@ export function ChatWidget() {
     ])
   }
 
+  if (location.pathname.startsWith("/admin")) return null
+
   return (
     <>
       {open && (

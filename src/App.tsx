@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Contacts from "./pages/Contacts";
+import AdminLeads from "./pages/AdminLeads";
 import NotFound from "./pages/NotFound";
 import ChatWidget from "./components/chat/ChatWidget";
 
@@ -20,6 +21,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/contacts" element={<Contacts />} />
+          <Route path="/admin" element={<AdminLeads />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
