@@ -124,12 +124,12 @@ export function Expertise() {
                 </div>
                 <h3 className="text-xl font-medium mb-4">{area.title}</h3>
                 <p className="text-muted-foreground leading-relaxed mb-6">{area.description}</p>
-                <a
-                  href="#contact"
+                <button
+                  onClick={() => document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" })}
                   className="inline-flex items-center gap-2 text-sm px-4 py-2 border border-foreground/20 hover:bg-foreground hover:text-white transition-all duration-300"
                 >
                   Получить услугу
-                </a>
+                </button>
               </div>
             )
           })}
