@@ -93,6 +93,8 @@ interface LightboxProps {
 
 function Lightbox({ images, title, startIndex, onClose }: LightboxProps) {
   const [current, setCurrent] = useState(startIndex)
+  const touchStartX = useRef<number | null>(null)
+  const touchStartY = useRef<number | null>(null)
 
   const prev = () => setCurrent((i) => (i - 1 + images.length) % images.length)
   const next = () => setCurrent((i) => (i + 1) % images.length)
@@ -111,10 +113,29 @@ function Lightbox({ images, title, startIndex, onClose }: LightboxProps) {
     }
   }, [])
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+    touchStartY.current = e.touches[0].clientY
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null) return
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current
+    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) prev()
+      else next()
+    }
+    touchStartX.current = null
+    touchStartY.current = null
+  }
+
   return (
     <div
       className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center"
       onClick={onClose}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <button
         onClick={onClose}
@@ -183,6 +204,9 @@ function ProjectCard({
 }) {
   const [currentImage, setCurrentImage] = useState(0)
   const hasMultiple = project.images.length > 1
+  const touchStartX = useRef<number | null>(null)
+  const touchStartY = useRef<number | null>(null)
+  const didSwipe = useRef(false)
 
   const prev = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -194,11 +218,35 @@ function ProjectCard({
     setCurrentImage((i) => (i + 1) % project.images.length)
   }
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX
+    touchStartY.current = e.touches[0].clientY
+    didSwipe.current = false
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null || touchStartY.current === null || !hasMultiple) return
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current
+    const deltaY = e.changedTouches[0].clientY - touchStartY.current
+    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+      didSwipe.current = true
+      if (deltaX > 0) {
+        setCurrentImage((i) => (i - 1 + project.images.length) % project.images.length)
+      } else {
+        setCurrentImage((i) => (i + 1) % project.images.length)
+      }
+    }
+    touchStartX.current = null
+    touchStartY.current = null
+  }
+
   return (
     <article className="group cursor-pointer">
       <div
         className="relative overflow-hidden aspect-[4/3] mb-6 cursor-zoom-in"
-        onClick={() => isRevealed && onImageClick(currentImage)}
+        onClick={() => { if (didSwipe.current) { didSwipe.current = false; return } isRevealed && onImageClick(currentImage) }}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         <img
           src={project.images[currentImage]}
