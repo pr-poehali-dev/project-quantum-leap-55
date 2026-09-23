@@ -81,10 +81,10 @@ export function CallToAction() {
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
             <a
-              href="tel:+78001234567"
+              href="tel:+79091530033"
               className="inline-flex items-center justify-center gap-2 border border-primary-foreground/30 px-8 py-4 text-sm tracking-wide hover:bg-primary-foreground/10 transition-colors duration-300"
             >
-              +7 (800) 123-45-67
+              +7 909 153-00-33
             </a>
             <button
               onClick={() => setShowModal(true)}
