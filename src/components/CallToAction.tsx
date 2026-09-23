@@ -47,7 +47,7 @@ function CallbackModal({ onClose }: { onClose: () => void }) {
         ) : (
           <>
             <h3 className="text-xl font-medium mb-1">Обратный звонок</h3>
-            <p className="text-muted-foreground text-sm mb-6">Оставьте номер — мы перезвоним в течение 15 минут</p>
+            <p className="text-muted-foreground text-sm mb-6">Оставьте номер — мы перезвоним в ближайшее время</p>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <input
                 type="text"
