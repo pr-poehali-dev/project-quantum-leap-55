@@ -67,7 +67,7 @@ export function LeadForm() {
             <ul className="space-y-4">
               {[
                 { icon: "Clock", text: "Перезвоним в течение рабочего дня" },
-                { icon: "Calculator", text: "Ориентир по стоимости с точностью ±15%" },
+                { icon: "Calculator", text: "Предварительный расчёт стоимости и сроков" },
                 { icon: "ShieldCheck", text: "Бесплатно и ни к чему не обязывает" },
               ].map((item) => (
                 <li key={item.text} className="flex items-center gap-3 text-foreground">
