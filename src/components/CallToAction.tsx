@@ -2,17 +2,36 @@ import { ArrowRight, Phone } from "lucide-react"
 import { HighlightedText } from "./HighlightedText"
 import { useState } from "react"
 
+const LEADS_URL = "https://functions.poehali.dev/e0b11d0c-3147-4a38-9d0a-17977fdefa27"
+
 function CallbackModal({ onClose }: { onClose: () => void }) {
   const [phone, setPhone] = useState("")
   const [name, setName] = useState("")
   const [sent, setSent] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState("")
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const subject = encodeURIComponent("Заказ обратного звонка")
-    const body = encodeURIComponent(`Имя: ${name}\nТелефон: ${phone}`)
-    window.location.href = `mailto:skvisotapro@mail.ru?subject=${subject}&body=${body}`
-    setSent(true)
+    setLoading(true)
+    setError("")
+    try {
+      const res = await fetch(LEADS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, source: "callback" }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setError(data.error || "Не удалось отправить заявку")
+        return
+      }
+      setSent(true)
+    } catch {
+      setError("Нет связи. Попробуйте ещё раз или позвоните нам.")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -46,8 +65,13 @@ function CallbackModal({ onClose }: { onClose: () => void }) {
                 onChange={(e) => setPhone(e.target.value)}
                 className="border border-border px-4 py-3 text-sm outline-none focus:border-foreground transition-colors"
               />
-              <button type="submit" className="bg-foreground text-white px-6 py-3 text-sm hover:bg-foreground/80 transition-colors">
-                Перезвоните мне
+              {error && <p className="text-sm text-red-600">{error}</p>}
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-foreground text-white px-6 py-3 text-sm hover:bg-foreground/80 transition-colors disabled:opacity-60"
+              >
+                {loading ? "Отправляем..." : "Перезвоните мне"}
               </button>
             </form>
           </>

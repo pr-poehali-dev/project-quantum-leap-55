@@ -16,6 +16,11 @@ CORS_HEADERS = {
 
 NOTIFY_EMAIL = 'skvisotapro@mail.ru'
 
+SOURCES = {
+    'calculation': ('Новая заявка на бесплатный расчёт стоимости', 'Заявка на расчёт'),
+    'callback': ('Новая заявка на обратный звонок', 'Обратный звонок'),
+}
+
 
 def respond(status: int, body: dict) -> dict:
     return {
@@ -29,20 +34,18 @@ def esc(value: str) -> str:
     return value.replace("'", "''")
 
 
-def send_email(lead_id: int, name: str, phone: str, description: str) -> bool:
+def send_email(lead_id: int, name: str, phone: str, description: str, source: str) -> bool:
     raw = os.environ.get('SMTP_PASSWORD') or ''
     password = re.sub(r'\s', '', raw)
     if not password:
         print('Email error: SMTP_PASSWORD is not set')
         return False
-    text = (
-        f'Новая заявка на бесплатный расчёт стоимости №{lead_id}\n\n'
-        f'Имя: {name}\n'
-        f'Телефон: {phone}\n'
-        f'Описание объекта:\n{description or "—"}\n'
-    )
+    title, subject = SOURCES[source]
+    text = f'{title} №{lead_id}\n\nИмя: {name}\nТелефон: {phone}\n'
+    if source == 'calculation':
+        text += f'Описание объекта:\n{description or "—"}\n'
     msg = MIMEText(text, 'plain', 'utf-8')
-    msg['Subject'] = Header(f'Заявка на расчёт №{lead_id} — {name}', 'utf-8')
+    msg['Subject'] = Header(f'{subject} №{lead_id} — {name}', 'utf-8')
     msg['From'] = NOTIFY_EMAIL
     msg['To'] = NOTIFY_EMAIL
     try:
@@ -56,7 +59,7 @@ def send_email(lead_id: int, name: str, phone: str, description: str) -> bool:
 
 
 def handler(event: dict, context) -> dict:
-    """Приём заявок на бесплатный расчёт стоимости: сохраняет заявку в базу и отправляет уведомление на почту компании."""
+    """Приём заявок с сайта (расчёт стоимости и обратный звонок): сохраняет заявку в базу и отправляет уведомление на почту компании."""
     if event.get('httpMethod') == 'OPTIONS':
         return {'statusCode': 200, 'headers': CORS_HEADERS, 'body': ''}
 
@@ -67,6 +70,9 @@ def handler(event: dict, context) -> dict:
     name = str(body.get('name', '')).strip()[:200]
     phone = str(body.get('phone', '')).strip()[:50]
     description = str(body.get('description', '')).strip()[:3000]
+    source = str(body.get('source', 'calculation'))
+    if source not in SOURCES:
+        source = 'calculation'
 
     if not name:
         return respond(400, {'error': 'Укажите имя'})
@@ -78,12 +84,12 @@ def handler(event: dict, context) -> dict:
     conn.autocommit = True
     cur = conn.cursor()
     cur.execute(
-        f"INSERT INTO {schema}.leads (name, phone, description) "
-        f"VALUES ('{esc(name)}', '{esc(phone)}', '{esc(description)}') RETURNING id"
+        f"INSERT INTO {schema}.leads (name, phone, description, source) "
+        f"VALUES ('{esc(name)}', '{esc(phone)}', '{esc(description)}', '{source}') RETURNING id"
     )
     lead_id = cur.fetchone()[0]
 
-    sent = send_email(lead_id, name, phone, description)
+    sent = send_email(lead_id, name, phone, description, source)
     if sent:
         cur.execute(f"UPDATE {schema}.leads SET email_sent = TRUE WHERE id = {int(lead_id)}")
 
