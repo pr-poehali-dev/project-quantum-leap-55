@@ -102,9 +102,6 @@ export default function Contacts() {
             <h1 className="text-6xl font-thin leading-[1.15] tracking-tight mb-6 text-amber-50">
               Свяжитесь с нами
             </h1>
-            <p className="text-amber-200/70 text-lg leading-relaxed">
-              Наши специалисты готовы ответить на вопросы и подготовить расчёт для вашего проекта.
-            </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
