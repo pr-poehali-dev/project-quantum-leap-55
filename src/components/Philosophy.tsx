@@ -147,7 +147,7 @@ export function Philosophy() {
 
             {activeTab === "history" && (
               <div>
-                <p className="text-muted-foreground text-lg leading-relaxed mb-12">2020 год - время, когда мир замер, а стройки встали. У нас не было жирных контрактов и инвестиций. Был хаос — и мы увидели в нём возможность.</p>
+                <p className="text-muted-foreground text-lg leading-relaxed mb-12">2012 год — мы закладываем фундамент своей компании. Без крупных контрактов и поддержки инвесторов. В основе — труд, ответственность и простое правило: взялся за дело — сделай хорошо.</p>
 
                 <div className="relative">
                   <div className="absolute left-0 top-0 bottom-0 w-px bg-border ml-[5px]" />
