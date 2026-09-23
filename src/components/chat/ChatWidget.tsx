@@ -52,7 +52,7 @@ export function ChatWidget() {
     const result = await generate({
       model: "openai/gpt-4o-mini",
       temperature: 0.5,
-      max_tokens: 600,
+      max_tokens: 900,
       messages: [{ role: "system", content: CONSULTANT_PROMPT }, ...next.slice(-12)],
     })
 
