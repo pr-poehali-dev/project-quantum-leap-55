@@ -66,7 +66,7 @@ export function LeadForm() {
             </p>
             <ul className="space-y-4">
               {[
-                { icon: "Clock", text: "Перезвоним в течение рабочего дня" },
+                { icon: "Clock", text: "Свяжемся с вами в ближайшее время" },
                 { icon: "Calculator", text: "Предварительный расчёт стоимости и сроков" },
                 { icon: "ShieldCheck", text: "Бесплатно и ни к чему не обязывает" },
               ].map((item) => (
