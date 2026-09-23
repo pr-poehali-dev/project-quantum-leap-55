@@ -121,8 +121,8 @@ export function CallToAction() {
 
           <div className="mt-16 pt-16 border-t border-primary-foreground/10 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
             <div>
-              <p className="text-3xl font-medium text-primary-foreground mb-2">40+</p>
-              <p className="text-primary-foreground/60 text-sm">реализованных объектов</p>
+              <p className="text-3xl font-medium text-primary-foreground mb-2">100+</p>
+              <p className="text-primary-foreground/60 text-sm">реализованных проектов</p>
             </div>
             <div>
               <p className="text-3xl font-medium text-primary-foreground mb-2">14 лет</p>
