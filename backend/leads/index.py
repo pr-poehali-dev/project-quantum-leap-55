@@ -32,6 +32,7 @@ def esc(value: str) -> str:
 def send_email(lead_id: int, name: str, phone: str, description: str) -> bool:
     password = os.environ.get('SMTP_PASSWORD')
     if not password:
+        print('Email error: SMTP_PASSWORD is not set')
         return False
     text = (
         f'Новая заявка на бесплатный расчёт стоимости №{lead_id}\n\n'
