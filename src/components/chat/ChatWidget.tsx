@@ -131,10 +131,10 @@ export function ChatWidget() {
 
       <button
         onClick={() => setOpen(!open)}
-        className="fixed z-[90] bottom-5 right-5 w-16 h-16 rounded-full bg-primary text-white shadow-xl flex items-center justify-center hover:scale-105 transition-transform"
+        className="fixed z-[90] bottom-5 right-5 w-16 h-16 rounded-full bg-green-600 hover:bg-green-700 text-white shadow-xl flex items-center justify-center hover:scale-105 transition-transform"
         aria-label={open ? "Закрыть чат" : "Открыть чат с консультантом"}
       >
-        {!open && <span className="absolute inset-0 rounded-full bg-primary animate-ping opacity-30" />}
+        {!open && <span className="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-30" />}
         <Icon name={open ? "X" : "MessageCircle"} size={28} className="relative" />
       </button>
     </>
