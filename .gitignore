@@ -1,1 +1,4 @@
 node_modules
+
+# warmup/handoff артефакты
+tmp/
