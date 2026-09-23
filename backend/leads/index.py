@@ -30,7 +30,8 @@ def esc(value: str) -> str:
 
 
 def send_email(lead_id: int, name: str, phone: str, description: str) -> bool:
-    password = os.environ.get('SMTP_PASSWORD')
+    raw = os.environ.get('SMTP_PASSWORD') or ''
+    password = re.sub(r'\s', '', raw)
     if not password:
         print('Email error: SMTP_PASSWORD is not set')
         return False
