@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Icon from "@/components/ui/icon"
 import { FileAttachments, type AttachedFile } from "@/components/lead/FileAttachments"
 
@@ -11,6 +11,16 @@ export function LeadForm() {
   const [files, setFiles] = useState<AttachedFile[]>([])
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle")
   const [errorText, setErrorText] = useState("")
+
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const service = (e as CustomEvent<string>).detail
+      if (!service) return
+      setDescription((prev) => (prev ? prev : `Услуга: ${service}\n`))
+    }
+    window.addEventListener("prefillLeadForm", handler)
+    return () => window.removeEventListener("prefillLeadForm", handler)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
