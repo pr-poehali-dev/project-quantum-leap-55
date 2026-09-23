@@ -57,17 +57,17 @@ export function ChatWidget() {
     <>
       {open && (
         <div className="fixed z-[90] bottom-24 right-4 left-4 sm:left-auto sm:w-[380px] h-[70vh] max-h-[560px] bg-white shadow-2xl rounded-2xl flex flex-col overflow-hidden border border-black/10">
-          <div className="bg-primary text-white px-5 py-4 flex items-center justify-between">
+          <div className="bg-green-600 text-white px-5 py-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center">
                 <Icon name="Bot" size={20} />
               </div>
               <div>
                 <p className="font-medium text-sm leading-tight">Консультант СК ВЫСОТА</p>
-                <p className="text-xs text-white/60">Отвечает мгновенно</p>
+                <p className="text-xs text-white/80">Отвечает мгновенно</p>
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="text-white/70 hover:text-white p-1" aria-label="Закрыть чат">
+            <button onClick={() => setOpen(false)} className="text-white/80 hover:text-white p-1" aria-label="Закрыть чат">
               <Icon name="X" size={20} />
             </button>
           </div>
@@ -78,7 +78,7 @@ export function ChatWidget() {
                 key={i}
                 className={`max-w-[85%] px-4 py-2.5 text-sm leading-relaxed whitespace-pre-wrap rounded-2xl ${
                   m.role === "user"
-                    ? "self-end bg-primary text-white rounded-br-sm"
+                    ? "self-end bg-green-600 text-white rounded-br-sm"
                     : "self-start bg-white text-neutral-800 border border-black/5 rounded-bl-sm"
                 }`}
               >
@@ -98,7 +98,7 @@ export function ChatWidget() {
                   <button
                     key={q}
                     onClick={() => send(q)}
-                    className="text-xs px-3 py-1.5 rounded-full border border-primary/30 text-primary bg-white hover:bg-primary hover:text-white transition-colors"
+                    className="text-xs px-3 py-1.5 rounded-full border border-green-600/40 text-green-700 bg-white hover:bg-green-600 hover:border-green-600 hover:text-white transition-colors"
                   >
                     {q}
                   </button>
@@ -115,12 +115,12 @@ export function ChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Напишите вопрос..."
-              className="flex-1 text-sm px-4 py-2.5 rounded-full bg-neutral-100 text-neutral-900 outline-none focus:ring-2 focus:ring-primary/30"
+              className="flex-1 text-sm px-4 py-2.5 rounded-full bg-neutral-100 text-neutral-900 outline-none focus:ring-2 focus:ring-green-600/30"
             />
             <button
               type="submit"
               disabled={isLoading || !input.trim()}
-              className="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center disabled:opacity-40 transition-opacity"
+              className="w-10 h-10 rounded-full bg-green-600 hover:bg-green-700 text-white flex items-center justify-center disabled:opacity-40 transition-colors"
               aria-label="Отправить"
             >
               <Icon name="Send" size={18} />
