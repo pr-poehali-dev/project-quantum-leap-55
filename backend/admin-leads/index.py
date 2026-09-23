@@ -38,7 +38,7 @@ def handler(event: dict, context) -> dict:
     conn = psycopg2.connect(os.environ['DATABASE_URL'])
     cur = conn.cursor()
     cur.execute(
-        f"SELECT id, name, phone, description, source, files, email_sent, created_at "
+        f"SELECT id, name, phone, description, source, files, email_sent, created_at, region, links "
         f"FROM {schema}.leads ORDER BY created_at DESC LIMIT 1000"
     )
     rows = cur.fetchall()
@@ -51,6 +51,10 @@ def handler(event: dict, context) -> dict:
             files = json.loads(r[5] or '[]')
         except ValueError:
             files = []
+        try:
+            links = json.loads(r[9] or '[]')
+        except ValueError:
+            links = []
         leads.append({
             'id': r[0],
             'name': r[1],
@@ -60,6 +64,8 @@ def handler(event: dict, context) -> dict:
             'files': files,
             'email_sent': r[6],
             'created_at': r[7].isoformat() + 'Z' if r[7] else None,
+            'region': r[8] or '',
+            'links': links,
         })
 
     return respond(200, {'leads': leads})

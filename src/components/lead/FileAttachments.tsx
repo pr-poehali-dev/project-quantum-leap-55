@@ -1,6 +1,6 @@
 import { useRef, useState } from "react"
 import Icon from "@/components/ui/icon"
-import { ACCEPT, MAX_FILES, formatSize, uploadFile } from "./fileUpload"
+import { ACCEPT, MAX_FILES, MAX_FILE_SIZE, formatSize, uploadFile } from "./fileUpload"
 
 export interface AttachedFile {
   id: string
@@ -72,7 +72,7 @@ export function FileAttachments({ files, onChange }: Props) {
           <Icon name="Paperclip" size={22} className="text-muted-foreground" />
           <span className="text-sm text-foreground">Прикрепите фото объекта, чертежи или смету</span>
           <span className="text-xs text-muted-foreground">
-            До {MAX_FILES} файлов · фото, PDF, Word, Excel, DWG, архивы
+            До {MAX_FILES} файлов, каждый до {formatSize(MAX_FILE_SIZE)} · фото, PDF, Word, Excel, DWG, архивы
           </span>
         </button>
       )}
