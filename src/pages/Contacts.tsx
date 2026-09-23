@@ -197,6 +197,20 @@ export default function Contacts() {
               </div>
             </div>
           </div>
+
+          <div className="border-t border-amber-200/10 pt-16 mt-16">
+            <p className="text-sm tracking-[0.2em] uppercase text-amber-300/40 mb-8">Как нас найти</p>
+            <div className="w-full h-[420px] overflow-hidden border border-amber-200/10">
+              <iframe
+                title="Карта офиса СК ВЫСОТА"
+                src="https://yandex.ru/map-widget/v1/?text=Москва%2C%20км%2022-й%20Киевское%20шоссе%2C%20д.4%20стр.1&z=15"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                allowFullScreen
+              />
+            </div>
+          </div>
         </div>
       </main>
 
