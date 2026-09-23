@@ -44,7 +44,7 @@ export function Footer() {
             <h4 className="text-sm font-medium mb-4">Связь</h4>
             <ul className="space-y-3 text-sm text-muted-foreground">
               <li>
-                <a href="mailto:sk.visota90@mail.ru" className="hover:text-foreground transition-colors">sk.visota90@mail.ru</a>
+                <a href="mailto:skvisotapro@mail.ru" className="hover:text-foreground transition-colors">skvisotapro@mail.ru</a>
               </li>
               <li>
                 <a href="tel:+79091530033" className="hover:text-foreground transition-colors">+7 909 153-00-33</a>

@@ -11,7 +11,7 @@ function CallbackModal({ onClose }: { onClose: () => void }) {
     e.preventDefault()
     const subject = encodeURIComponent("Заказ обратного звонка")
     const body = encodeURIComponent(`Имя: ${name}\nТелефон: ${phone}`)
-    window.location.href = `mailto:sk.visota90@mail.ru?subject=${subject}&body=${body}`
+    window.location.href = `mailto:skvisotapro@mail.ru?subject=${subject}&body=${body}`
     setSent(true)
   }
 

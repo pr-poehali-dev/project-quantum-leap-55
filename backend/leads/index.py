@@ -14,7 +14,7 @@ CORS_HEADERS = {
     'Access-Control-Max-Age': '86400',
 }
 
-NOTIFY_EMAIL = 'sk.visota90@mail.ru'
+NOTIFY_EMAIL = 'skvisotapro@mail.ru'
 
 
 def respond(status: int, body: dict) -> dict:

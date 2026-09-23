@@ -48,7 +48,7 @@ export function ChatWidget() {
         role: "assistant",
         content: result.success && result.content
           ? result.content
-          : "Извините, сейчас не получается ответить. Позвоните нам: +7 909 153-00-33 или напишите на sk.visota90@mail.ru.",
+          : "Извините, сейчас не получается ответить. Позвоните нам: +7 909 153-00-33 или напишите на skvisotapro@mail.ru.",
       },
     ])
   }

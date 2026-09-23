@@ -10,7 +10,7 @@ const managers = [
     phone: "+7 909 153-00-33",
     phoneHref: "tel:+79091530033",
     whatsapp: "https://wa.me/79091530033",
-    email: "sk.visota90@mail.ru",
+    email: "skvisotapro@mail.ru",
     photo: "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/286baddb-9d86-4c2b-a623-751e60142016.jpg",
   },
 ]
@@ -29,7 +29,7 @@ function ConsultModal({ manager, onClose }: ModalProps) {
     e.preventDefault()
     const subject = encodeURIComponent(`Вопрос для ${manager.name}`)
     const body = encodeURIComponent(`Имя: ${name}\n\n${message}`)
-    window.location.href = `mailto:sk.visota90@mail.ru?subject=${subject}&body=${body}`
+    window.location.href = `mailto:skvisotapro@mail.ru?subject=${subject}&body=${body}`
     setSent(true)
   }
 
@@ -152,8 +152,8 @@ export default function Contacts() {
           <div className="border-t border-amber-200/10 pt-16 grid md:grid-cols-3 gap-10 mb-16">
             <div>
               <p className="text-sm tracking-[0.2em] uppercase text-amber-300/40 mb-3">Email</p>
-              <a href="mailto:sk.visota90@mail.ru" className="text-lg text-amber-50 hover:text-amber-200 transition-colors">
-                sk.visota90@mail.ru
+              <a href="mailto:skvisotapro@mail.ru" className="text-lg text-amber-50 hover:text-amber-200 transition-colors">
+                skvisotapro@mail.ru
               </a>
             </div>
             <div>
