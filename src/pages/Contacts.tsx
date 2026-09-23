@@ -110,7 +110,7 @@ export default function Contacts() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {managers.map((manager) => (
               <div key={manager.email} className="border border-amber-200/10 bg-amber-50/5 backdrop-blur-sm p-8 flex flex-col gap-5">
-                <div className="w-20 h-20 bg-amber-100/10 flex items-center justify-center">
+                <div className="w-40 h-40 bg-amber-100/10 flex items-center justify-center">
                   {manager.photo ? (
                     <img src={manager.photo} alt={manager.name} className="w-full h-full object-cover" />
                   ) : (
