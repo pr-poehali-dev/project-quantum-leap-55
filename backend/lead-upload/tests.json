@@ -1,0 +1,28 @@
+{
+  "tests": [
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Upload small text file",
+      "method": "POST",
+      "path": "/",
+      "body": {"filename": "test.txt", "contentType": "text/plain", "data": "0YLQtdGB0YI="},
+      "expectedStatus": 200,
+      "expectedBody": {"url": "string"},
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Reject bad format",
+      "method": "POST",
+      "path": "/",
+      "body": {"filename": "virus.exe", "data": "AAAA"},
+      "expectedStatus": 400,
+      "expectedBody": {"error": "string"},
+      "bodyMatcher": "partial"
+    }
+  ]
+}

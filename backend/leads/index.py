@@ -34,7 +34,7 @@ def esc(value: str) -> str:
     return value.replace("'", "''")
 
 
-def send_email(lead_id: int, name: str, phone: str, description: str, source: str) -> bool:
+def send_email(lead_id: int, name: str, phone: str, description: str, source: str, files: list) -> bool:
     raw = os.environ.get('SMTP_PASSWORD') or ''
     password = re.sub(r'\s', '', raw)
     if not password:
@@ -44,6 +44,10 @@ def send_email(lead_id: int, name: str, phone: str, description: str, source: st
     text = f'{title} №{lead_id}\n\nИмя: {name}\nТелефон: {phone}\n'
     if source == 'calculation':
         text += f'Описание объекта:\n{description or "—"}\n'
+    if files:
+        text += f'\nПрикреплённые файлы ({len(files)}):\n'
+        for f in files:
+            text += f"• {f['name']}: {f['url']}\n"
     msg = MIMEText(text, 'plain', 'utf-8')
     msg['Subject'] = Header(f'{subject} №{lead_id} — {name}', 'utf-8')
     msg['From'] = NOTIFY_EMAIL
@@ -71,6 +75,11 @@ def handler(event: dict, context) -> dict:
     phone = str(body.get('phone', '')).strip()[:50]
     description = str(body.get('description', '')).strip()[:3000]
     source = str(body.get('source', 'calculation'))
+    files = []
+    for f in (body.get('files') or [])[:10]:
+        url = str(f.get('url', ''))
+        if url.startswith('https://cdn.poehali.dev/'):
+            files.append({'name': str(f.get('name', 'файл'))[:200], 'url': url[:500]})
     if source not in SOURCES:
         source = 'calculation'
 
@@ -84,12 +93,13 @@ def handler(event: dict, context) -> dict:
     conn.autocommit = True
     cur = conn.cursor()
     cur.execute(
-        f"INSERT INTO {schema}.leads (name, phone, description, source) "
-        f"VALUES ('{esc(name)}', '{esc(phone)}', '{esc(description)}', '{source}') RETURNING id"
+        f"INSERT INTO {schema}.leads (name, phone, description, source, files) "
+        f"VALUES ('{esc(name)}', '{esc(phone)}', '{esc(description)}', '{source}', "
+        f"'{esc(json.dumps(files, ensure_ascii=False))}') RETURNING id"
     )
     lead_id = cur.fetchone()[0]
 
-    sent = send_email(lead_id, name, phone, description, source)
+    sent = send_email(lead_id, name, phone, description, source, files)
     if sent:
         cur.execute(f"UPDATE {schema}.leads SET email_sent = TRUE WHERE id = {int(lead_id)}")
 

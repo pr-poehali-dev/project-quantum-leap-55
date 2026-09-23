@@ -1,5 +1,6 @@
 import { useState } from "react"
 import Icon from "@/components/ui/icon"
+import { FileAttachments, type AttachedFile } from "@/components/lead/FileAttachments"
 
 const LEADS_URL = "https://functions.poehali.dev/e0b11d0c-3147-4a38-9d0a-17977fdefa27"
 
@@ -7,18 +8,29 @@ export function LeadForm() {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [description, setDescription] = useState("")
+  const [files, setFiles] = useState<AttachedFile[]>([])
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle")
   const [errorText, setErrorText] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (files.some((f) => f.status === "uploading")) {
+      setErrorText("Дождитесь загрузки файлов")
+      setStatus("error")
+      return
+    }
     setStatus("loading")
     setErrorText("")
     try {
       const res = await fetch(LEADS_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, description }),
+        body: JSON.stringify({
+          name,
+          phone,
+          description,
+          files: files.filter((f) => f.status === "done").map((f) => ({ name: f.name, url: f.url })),
+        }),
       })
       const data = await res.json()
       if (!res.ok) {
@@ -30,6 +42,7 @@ export function LeadForm() {
       setName("")
       setPhone("")
       setDescription("")
+      setFiles([])
     } catch {
       setErrorText("Нет связи. Попробуйте ещё раз или позвоните нам.")
       setStatus("error")
@@ -118,6 +131,8 @@ export function LeadForm() {
                   />
                 </div>
 
+                <FileAttachments files={files} onChange={setFiles} />
+
                 {status === "error" && (
                   <p className="text-sm text-red-600 flex items-center gap-2">
                     <Icon name="AlertCircle" size={16} />
@@ -127,7 +142,7 @@ export function LeadForm() {
 
                 <button
                   type="submit"
-                  disabled={status === "loading"}
+                  disabled={status === "loading" || files.some((f) => f.status === "uploading")}
                   className="mt-2 inline-flex items-center justify-center gap-2 bg-foreground text-primary-foreground px-8 py-4 text-sm tracking-wide hover:bg-foreground/85 transition-colors disabled:opacity-60"
                 >
                   {status === "loading" ? (

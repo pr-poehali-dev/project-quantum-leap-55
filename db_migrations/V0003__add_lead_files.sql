@@ -1,0 +1,1 @@
+ALTER TABLE t_p77458721_project_quantum_leap.leads ADD COLUMN IF NOT EXISTS files TEXT NOT NULL DEFAULT '[]';
