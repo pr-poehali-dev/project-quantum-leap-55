@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react"
 import { HighlightedText } from "./HighlightedText"
 import Icon from "@/components/ui/icon"
+import { Link } from "react-router-dom"
+import { findServiceByExpertise, services } from "@/data/services"
 
 const expertiseAreas = [
   {
@@ -107,6 +109,7 @@ export function Expertise() {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
           {expertiseAreas.map((area, index) => {
+            const page = findServiceByExpertise(area.title)
             return (
               <div
                 key={area.title}
@@ -122,7 +125,15 @@ export function Expertise() {
                 <div className={`transition-all duration-1000 ${visibleItems.includes(index) ? "animate-draw-stroke" : ""}`}>
                   <Icon name={area.icon} className="w-10 h-10 mb-4 text-foreground" strokeWidth={1.25} />
                 </div>
-                <h3 className="text-xl font-medium mb-4">{area.title}</h3>
+                <h3 className="text-xl font-medium mb-4">
+                  {page ? (
+                    <Link to={`/uslugi/${page.slug}`} className="hover:underline underline-offset-4">
+                      {area.title}
+                    </Link>
+                  ) : (
+                    area.title
+                  )}
+                </h3>
                 <p className="text-muted-foreground leading-relaxed mb-6">{area.description}</p>
                 <button
                   onClick={() => {
@@ -133,9 +144,33 @@ export function Expertise() {
                 >
                   Получить услугу
                 </button>
+                {page && (
+                  <Link
+                    to={`/uslugi/${page.slug}`}
+                    className="ml-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Подробнее
+                    <Icon name="ArrowRight" size={14} />
+                  </Link>
+                )}
               </div>
             )
           })}
+        </div>
+
+        <div className="mt-20 pt-12 border-t border-border">
+          <p className="text-sm tracking-[0.2em] uppercase text-muted-foreground mb-5">Подробнее о направлениях</p>
+          <div className="flex flex-wrap gap-3">
+            {services.map((s) => (
+              <Link
+                key={s.slug}
+                to={`/uslugi/${s.slug}`}
+                className="text-sm px-4 py-2 bg-white/80 border border-foreground/20 hover:bg-foreground hover:text-white transition-colors"
+              >
+                {s.menuTitle}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -43,7 +43,7 @@ export function Header() {
 
   const openLeadForm = () => {
     closeMobileMenu()
-    if (location.pathname !== "/") {
+    if (location.pathname !== "/" && !document.getElementById("lead-form")) {
       navigate("/")
       setTimeout(() => {
         document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" })
@@ -76,7 +76,7 @@ export function Header() {
             { label: "Главная", href: "/#hero" },
             { label: "О компании", href: "/#about" },
             { label: "Проекты", href: "/#projects" },
-            { label: "Услуги", href: "/#services" },
+            { label: "Услуги", href: "/uslugi" },
             { label: "Вопросы", href: "/#faq" },
             { label: "Контакты", href: "/contacts" },
           ].map((item) => (
@@ -143,7 +143,7 @@ export function Header() {
               { label: "Главная", href: "/#hero" },
               { label: "О компании", href: "/#about" },
               { label: "Проекты", href: "/#projects" },
-              { label: "Услуги", href: "/#services" },
+              { label: "Услуги", href: "/uslugi" },
               { label: "Вопросы", href: "/#faq" },
               { label: "Контакты", href: "/contacts" },
             ].map((item) => (

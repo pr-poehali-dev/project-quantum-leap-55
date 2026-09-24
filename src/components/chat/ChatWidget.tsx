@@ -30,7 +30,7 @@ export function ChatWidget() {
   const goToLeadForm = () => {
     setOpen(false)
     const scroll = () => document.getElementById("lead-form")?.scrollIntoView({ behavior: "smooth" })
-    if (location.pathname !== "/") {
+    if (location.pathname !== "/" && !document.getElementById("lead-form")) {
       navigate("/")
       setTimeout(scroll, 300)
     } else {

@@ -9,11 +9,11 @@ interface SentResult {
   links: string[]
 }
 
-export function LeadForm() {
+export function LeadForm({ initialService }: { initialService?: string } = {}) {
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
   const [region, setRegion] = useState("")
-  const [description, setDescription] = useState("")
+  const [description, setDescription] = useState(initialService ? `Услуга: ${initialService}\n` : "")
   const [docLink, setDocLink] = useState("")
   const [files, setFiles] = useState<AttachedFile[]>([])
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle")

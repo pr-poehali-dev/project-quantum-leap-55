@@ -8,8 +8,11 @@ import Index from "./pages/Index";
 import Contacts from "./pages/Contacts";
 import AdminLeads from "./pages/AdminLeads";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ServicesIndex from "./pages/ServicesIndex";
+import ServicePage from "./pages/ServicePage";
 import NotFound from "./pages/NotFound";
 import ChatWidget from "./components/chat/ChatWidget";
+import ScrollToTop from "./components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -19,11 +22,14 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/admin" element={<AdminLeads />} />
           <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/uslugi" element={<ServicesIndex />} />
+          <Route path="/uslugi/:slug" element={<ServicePage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
