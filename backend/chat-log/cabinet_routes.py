@@ -54,13 +54,13 @@ def cabinet_handler(event: dict) -> dict:
     uid = int(r[0])
 
     cur.execute(
-        f"SELECT id, source, description, region, files, links, status, created_at "
+        f"SELECT id, source, description, region, files, links, status, created_at, disk_link "
         f"FROM {s}.leads WHERE user_id = {uid} ORDER BY created_at DESC LIMIT 200"
     )
     leads = [{
         'id': x[0], 'source': x[1], 'description': x[2] or '', 'region': x[3] or '',
         'files': parse_json(x[4]), 'links': parse_json(x[5]), 'status': x[6],
-        'created_at': iso(x[7]), 'documents': [],
+        'created_at': iso(x[7]), 'disk_link': x[8] or '', 'documents': [], 'progress_photos': [],
     } for x in cur.fetchall()]
 
     by_id = {lead['id']: lead for lead in leads}
@@ -73,6 +73,14 @@ def cabinet_handler(event: dict) -> dict:
         for d in cur.fetchall():
             by_id[d[1]]['documents'].append({
                 'id': d[0], 'name': d[2], 'title': d[3] or d[2], 'url': d[4], 'size': d[5], 'created_at': iso(d[6]),
+            })
+        cur.execute(
+            f"SELECT id, lead_id, url, caption, created_at FROM {s}.lead_progress_photos "
+            f"WHERE lead_id IN ({ids}) AND hidden = FALSE ORDER BY created_at DESC"
+        )
+        for p in cur.fetchall():
+            by_id[p[1]]['progress_photos'].append({
+                'id': p[0], 'url': p[2], 'caption': p[3] or '', 'created_at': iso(p[4]),
             })
 
     cur.execute(

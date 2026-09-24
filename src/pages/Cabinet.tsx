@@ -3,7 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import Icon from "@/components/ui/icon"
 import { useSeo } from "@/hooks/useSeo"
 import { CABINET_URL, authHeaders, clearAuth, logout, useAuth } from "@/lib/auth"
-import { CabinetLeads, CabinetDocuments, formatDate, type CabinetLead } from "@/components/account/CabinetLeads"
+import { CabinetLeads, CabinetDocuments, CabinetProgress, formatDate, type CabinetLead } from "@/components/account/CabinetLeads"
 import { CabinetProfile } from "@/components/account/CabinetProfile"
 
 interface CabinetChat {
@@ -13,10 +13,11 @@ interface CabinetChat {
   updated_at: string
 }
 
-type Tab = "leads" | "documents" | "chats" | "profile"
+type Tab = "leads" | "progress" | "documents" | "chats" | "profile"
 
 const TABS: { key: Tab; label: string; icon: string }[] = [
   { key: "leads", label: "Мои заявки", icon: "ClipboardList" },
+  { key: "progress", label: "Контроль проводимых работ", icon: "HardDrive" },
   { key: "documents", label: "Документы", icon: "FolderOpen" },
   { key: "chats", label: "Переписка", icon: "MessagesSquare" },
   { key: "profile", label: "Профиль", icon: "UserCog" },
@@ -183,6 +184,8 @@ export default function Cabinet() {
           </div>
         ) : tab === "leads" ? (
           <CabinetLeads leads={leads} onNewLead={goNewLead} />
+        ) : tab === "progress" ? (
+          <CabinetProgress leads={leads} />
         ) : tab === "documents" ? (
           <CabinetDocuments leads={leads} />
         ) : (

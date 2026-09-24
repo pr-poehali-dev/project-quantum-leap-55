@@ -11,6 +11,13 @@ export interface CabinetDocument {
   created_at: string
 }
 
+export interface ProgressPhoto {
+  id: number
+  url: string
+  caption: string
+  created_at: string
+}
+
 export interface CabinetLead {
   id: number
   source: string
@@ -21,6 +28,8 @@ export interface CabinetLead {
   status: string
   created_at: string
   documents: CabinetDocument[]
+  disk_link: string
+  progress_photos: ProgressPhoto[]
 }
 
 export function formatDate(iso: string, withTime = false) {
@@ -80,6 +89,54 @@ export function CabinetDocuments({ leads }: { leads: CabinetLead[] }) {
           </span>
           <Icon name="Download" size={18} className="text-neutral-400 group-hover:text-green-700 shrink-0" />
         </a>
+      ))}
+    </div>
+  )
+}
+
+export function CabinetProgress({ leads }: { leads: CabinetLead[] }) {
+  const active = leads.filter((l) => l.disk_link || l.progress_photos.length > 0)
+  if (active.length === 0) {
+    return (
+      <div className="bg-white border border-neutral-200 py-14 px-6 text-center text-neutral-500">
+        <Icon name="HardDrive" size={36} className="mx-auto mb-3 text-neutral-300" />
+        Здесь появятся ссылка на Яндекс.Диск и фотографии этапов работ по Вашему объекту
+      </div>
+    )
+  }
+  return (
+    <div className="space-y-3">
+      {active.map((l) => (
+        <div key={l.id} className="bg-white border border-neutral-200 p-5 md:p-6">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <span className="text-sm font-medium text-neutral-900">Заявка №{l.id}</span>
+            {l.disk_link && (
+              <a
+                href={l.disk_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-xs bg-neutral-900 text-white px-3 py-1.5 hover:bg-neutral-700 transition-colors"
+              >
+                <Icon name="HardDrive" size={14} />
+                Открыть папку на Яндекс.Диске
+              </a>
+            )}
+          </div>
+          {l.progress_photos.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              {l.progress_photos.map((p) => (
+                <a key={p.id} href={p.url} target="_blank" rel="noopener noreferrer" className="relative block group">
+                  <img src={p.url} alt={p.caption} className="w-full aspect-square object-cover border border-neutral-200" />
+                  {p.caption && (
+                    <span className="absolute inset-x-0 bottom-0 bg-black/60 text-white text-[11px] px-2 py-1 truncate">{p.caption}</span>
+                  )}
+                </a>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-neutral-500">Фотографии этапов пока не добавлены</p>
+          )}
+        </div>
       ))}
     </div>
   )

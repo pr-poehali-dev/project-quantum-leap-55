@@ -2,7 +2,7 @@ import { useSeo } from "@/hooks/useSeo"
 import { useEffect, useMemo, useState } from "react"
 import Icon from "@/components/ui/icon"
 import { AdminChats } from "@/components/admin/AdminChats"
-import { LeadManage, type LeadDocument } from "@/components/admin/LeadManage"
+import { LeadManage, type LeadDocument, type ProgressPhoto } from "@/components/admin/LeadManage"
 import { statusInfo } from "@/lib/leadStatus"
 
 const API_URL = "https://functions.poehali.dev/d60bcfed-8ba1-4c96-8bce-942717961b03"
@@ -26,7 +26,9 @@ interface Lead {
   user_id: number | null
   user_email: string
   user_name: string
+  disk_link: string
   documents: LeadDocument[]
+  progress_photos: ProgressPhoto[]
 }
 
 const SOURCE_LABELS: Record<string, { label: string; className: string }> = {
@@ -157,6 +159,8 @@ function LeadCard({ lead, apiUrl, password, onChanged }: LeadCardProps) {
         leadId={lead.id}
         status={lead.status}
         documents={lead.documents || []}
+        diskLink={lead.disk_link || ""}
+        progressPhotos={lead.progress_photos || []}
         hasAccount={!!lead.user_id}
         onChanged={onChanged}
       />

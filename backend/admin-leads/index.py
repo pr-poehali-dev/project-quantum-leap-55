@@ -78,12 +78,13 @@ def handler(event: dict, context) -> dict:
 
     cur.execute(
         f"SELECT l.id, l.name, l.phone, l.description, l.source, l.files, l.email_sent, l.created_at, l.region, l.links, "
-        f"l.status, l.user_id, u.email, u.name "
+        f"l.status, l.user_id, u.email, u.name, l.disk_link "
         f"FROM {schema}.leads l LEFT JOIN {schema}.users u ON u.id = l.user_id "
         f"ORDER BY l.created_at DESC LIMIT 1000"
     )
     rows = cur.fetchall()
     docs = {}
+    photos = {}
     if rows:
         ids = ','.join(str(r[0]) for r in rows)
         cur.execute(
@@ -94,6 +95,15 @@ def handler(event: dict, context) -> dict:
             docs.setdefault(d[1], []).append({
                 'id': d[0], 'name': d[2], 'title': d[3] or d[2], 'url': d[4], 'size': d[5],
                 'created_at': d[6].isoformat() + 'Z' if d[6] else None,
+            })
+        cur.execute(
+            f"SELECT id, lead_id, url, caption, created_at FROM {schema}.lead_progress_photos "
+            f"WHERE lead_id IN ({ids}) AND hidden = FALSE ORDER BY created_at DESC"
+        )
+        for p in cur.fetchall():
+            photos.setdefault(p[1], []).append({
+                'id': p[0], 'url': p[2], 'caption': p[3] or '',
+                'created_at': p[4].isoformat() + 'Z' if p[4] else None,
             })
     cur.close()
     conn.close()
@@ -123,7 +133,9 @@ def handler(event: dict, context) -> dict:
             'user_id': r[11],
             'user_email': r[12] or '',
             'user_name': r[13] or '',
+            'disk_link': r[14] or '',
             'documents': docs.get(r[0], []),
+            'progress_photos': photos.get(r[0], []),
         })
 
     return respond(200, {'leads': leads})
