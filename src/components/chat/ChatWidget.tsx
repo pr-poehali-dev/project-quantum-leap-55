@@ -16,11 +16,30 @@ const GREETING: ChatMessage = {
   content: "Здравствуйте! Рады приветствовать Вас на сайте СК ВЫСОТА. Я ИИ-консультант компании и с удовольствием расскажу об услугах, проектах, сроках и стоимости работ. Чем могу быть Вам полезен?",
 }
 
+const STORAGE_KEY = "skvisota_chat_history"
+const HISTORY_TTL = 90 * 24 * 60 * 60 * 1000
+const MAX_STORED = 100
+
+const loadHistory = (): ChatMessage[] => {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return [GREETING]
+    const data = JSON.parse(raw) as { messages: ChatMessage[]; updatedAt: number }
+    if (!Array.isArray(data.messages) || data.messages.length === 0 || Date.now() - data.updatedAt > HISTORY_TTL) {
+      localStorage.removeItem(STORAGE_KEY)
+      return [GREETING]
+    }
+    return data.messages
+  } catch {
+    return [GREETING]
+  }
+}
+
 const QUICK_QUESTIONS = ["Сколько стоит строительство?", "Какие услуги вы оказываете?", "Какие гарантии?"]
 
 export function ChatWidget() {
   const [open, setOpen] = useState(false)
-  const [messages, setMessages] = useState<ChatMessage[]>([GREETING])
+  const [messages, setMessages] = useState<ChatMessage[]>(loadHistory)
   const [input, setInput] = useState("")
   const { generate, isLoading } = useChatGPT({ apiUrl: API_URL })
   const listRef = useRef<HTMLDivElement>(null)
@@ -36,6 +55,21 @@ export function ChatWidget() {
     } else {
       scroll()
     }
+  }
+
+  useEffect(() => {
+    try {
+      if (messages.length <= 1) localStorage.removeItem(STORAGE_KEY)
+      else localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages: messages.slice(-MAX_STORED), updatedAt: Date.now() }))
+    } catch {
+      /* storage unavailable */
+    }
+  }, [messages])
+
+  const resetChat = () => {
+    if (isLoading) return
+    if (!window.confirm("Начать новый диалог? Текущая переписка будет удалена.")) return
+    setMessages([GREETING])
   }
 
   useEffect(() => {
@@ -83,9 +117,16 @@ export function ChatWidget() {
                 <p className="text-xs text-white/80">Отвечает мгновенно</p>
               </div>
             </div>
-            <button onClick={() => setOpen(false)} className="text-white/80 hover:text-white p-1" aria-label="Закрыть чат">
-              <Icon name="X" size={20} />
-            </button>
+            <div className="flex items-center gap-1">
+              {messages.length > 1 && (
+                <button onClick={resetChat} className="text-white/80 hover:text-white p-1" aria-label="Начать новый диалог" title="Начать новый диалог">
+                  <Icon name="RotateCcw" size={18} />
+                </button>
+              )}
+              <button onClick={() => setOpen(false)} className="text-white/80 hover:text-white p-1" aria-label="Закрыть чат">
+                <Icon name="X" size={20} />
+              </button>
+            </div>
           </div>
 
           <div ref={listRef} className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-3 bg-neutral-50">
