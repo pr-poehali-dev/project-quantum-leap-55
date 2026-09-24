@@ -21,7 +21,7 @@ def respond(status: int, body: dict) -> dict:
 
 
 def handler(event: dict, context) -> dict:
-    """Список всех заявок с сайта для закрытой страницы администратора. Доступ только по паролю."""
+    """Список заявок и переписок с ИИ-консультантом (type=chats) для закрытой страницы администратора. Доступ только по паролю."""
     if event.get('httpMethod') == 'OPTIONS':
         return {'statusCode': 200, 'headers': CORS_HEADERS, 'body': ''}
 
@@ -37,6 +37,32 @@ def handler(event: dict, context) -> dict:
     schema = os.environ['MAIN_DB_SCHEMA']
     conn = psycopg2.connect(os.environ['DATABASE_URL'])
     cur = conn.cursor()
+
+    params = event.get('queryStringParameters') or {}
+    if params.get('type') == 'chats':
+        cur.execute(
+            f"SELECT id, messages, message_count, page, created_at, updated_at "
+            f"FROM {schema}.chat_sessions WHERE session_id NOT LIKE 'test-%' ORDER BY updated_at DESC LIMIT 500"
+        )
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+        chats = []
+        for r in rows:
+            try:
+                messages = json.loads(r[1] or '[]')
+            except ValueError:
+                messages = []
+            chats.append({
+                'id': r[0],
+                'messages': messages,
+                'message_count': r[2],
+                'page': r[3] or '',
+                'created_at': r[4].isoformat() + 'Z' if r[4] else None,
+                'updated_at': r[5].isoformat() + 'Z' if r[5] else None,
+            })
+        return respond(200, {'chats': chats})
+
     cur.execute(
         f"SELECT id, name, phone, description, source, files, email_sent, created_at, region, links "
         f"FROM {schema}.leads ORDER BY created_at DESC LIMIT 1000"

@@ -1,6 +1,7 @@
 import { useSeo } from "@/hooks/useSeo"
 import { useEffect, useMemo, useState } from "react"
 import Icon from "@/components/ui/icon"
+import { AdminChats } from "@/components/admin/AdminChats"
 
 const API_URL = "https://functions.poehali.dev/d60bcfed-8ba1-4c96-8bce-942717961b03"
 const STORAGE_KEY = "admin_leads_password"
@@ -139,6 +140,8 @@ export default function AdminLeads() {
   const [error, setError] = useState("")
   const [filter, setFilter] = useState<"all" | "calculation" | "callback">("all")
   const [search, setSearch] = useState("")
+  const [tab, setTab] = useState<"leads" | "chats">("leads")
+  const [reloadKey, setReloadKey] = useState(0)
 
   const load = async (pwd: string) => {
     setLoading(true)
@@ -199,12 +202,12 @@ export default function AdminLeads() {
       <header className="bg-neutral-900 text-white">
         <div className="max-w-5xl mx-auto px-4 md:px-6 py-4 flex items-center justify-between gap-4">
           <div>
-            <h1 className="text-lg font-medium">Заявки с сайта</h1>
+            <h1 className="text-lg font-medium">Панель СК ВЫСОТА</h1>
             <p className="text-xs text-white/60">СК ВЫСОТА · всего {leads.length}</p>
           </div>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => load(password)}
+              onClick={() => (tab === "leads" ? load(password) : setReloadKey((k) => k + 1))}
               disabled={loading}
               className="inline-flex items-center gap-2 text-sm px-3 py-2 border border-white/30 hover:bg-white/10 disabled:opacity-50"
             >
@@ -227,6 +230,28 @@ export default function AdminLeads() {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 md:px-6 py-6">
+        <div className="flex gap-6 border-b border-neutral-300 mb-5">
+          {([
+            ["leads", "Заявки", "ClipboardList"],
+            ["chats", "Переписки с консультантом", "MessagesSquare"],
+          ] as const).map(([key, label, icon]) => (
+            <button
+              key={key}
+              onClick={() => setTab(key)}
+              className={`inline-flex items-center gap-2 text-sm pb-3 -mb-px border-b-2 transition-colors ${
+                tab === key ? "border-neutral-900 text-neutral-900 font-medium" : "border-transparent text-neutral-500 hover:text-neutral-900"
+              }`}
+            >
+              <Icon name={icon} size={16} />
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {tab === "chats" ? (
+          <AdminChats apiUrl={API_URL} password={password} reloadKey={reloadKey} />
+        ) : (
+        <>
         <div className="flex flex-col md:flex-row gap-3 mb-5">
           <div className="flex gap-1 bg-white border border-neutral-200 p-1">
             {([
@@ -269,6 +294,8 @@ export default function AdminLeads() {
               <LeadCard key={lead.id} lead={lead} />
             ))}
           </div>
+        )}
+        </>
         )}
       </main>
     </div>

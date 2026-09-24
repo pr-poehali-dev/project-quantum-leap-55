@@ -16,7 +16,36 @@ const GREETING: ChatMessage = {
   content: "Здравствуйте! Рады приветствовать Вас на сайте СК ВЫСОТА. Я ИИ-консультант компании и с удовольствием расскажу об услугах, проектах, сроках и стоимости работ. Чем могу быть Вам полезен?",
 }
 
+const LOG_URL = "https://functions.poehali.dev/d47c89a4-0460-4384-875a-5d2114146ac2"
 const STORAGE_KEY = "skvisota_chat_history"
+const SESSION_KEY = "skvisota_chat_session"
+
+const newSessionId = () =>
+  typeof crypto !== "undefined" && "randomUUID" in crypto
+    ? crypto.randomUUID()
+    : `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 12)}`
+
+const getSessionId = () => {
+  try {
+    let id = localStorage.getItem(SESSION_KEY)
+    if (!id) {
+      id = newSessionId()
+      localStorage.setItem(SESSION_KEY, id)
+    }
+    return id
+  } catch {
+    return newSessionId()
+  }
+}
+
+const logChat = (messages: ChatMessage[], page: string) => {
+  fetch(LOG_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ session_id: getSessionId(), messages, page }),
+    keepalive: true,
+  }).catch(() => undefined)
+}
 const HISTORY_TTL = 90 * 24 * 60 * 60 * 1000
 const MAX_STORED = 100
 
@@ -69,6 +98,11 @@ export function ChatWidget() {
   const resetChat = () => {
     if (isLoading) return
     if (!window.confirm("Начать новый диалог? Текущая переписка будет удалена.")) return
+    try {
+      localStorage.setItem(SESSION_KEY, newSessionId())
+    } catch {
+      /* storage unavailable */
+    }
     setMessages([GREETING])
   }
 
@@ -90,15 +124,14 @@ export function ChatWidget() {
       messages: [{ role: "system", content: CONSULTANT_PROMPT }, ...next.slice(-12)],
     })
 
-    setMessages((prev) => [
-      ...prev,
-      {
-        role: "assistant",
-        content: result.success && result.content
-          ? result.content
-          : "Извините, сейчас не получается ответить. Позвоните нам: +7 909 153-00-33 или напишите на skvisotapro@mail.ru.",
-      },
-    ])
+    const reply: ChatMessage = {
+      role: "assistant",
+      content: result.success && result.content
+        ? result.content
+        : "Извините, сейчас не получается ответить. Позвоните нам: +7 909 153-00-33 или напишите на skvisotapro@mail.ru.",
+    }
+    setMessages((prev) => [...prev, reply])
+    logChat([...next, reply], location.pathname)
   }
 
   if (location.pathname.startsWith("/admin")) return null
