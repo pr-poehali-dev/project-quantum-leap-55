@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
 import Icon from "@/components/ui/icon"
 import { useSeo } from "@/hooks/useSeo"
@@ -15,12 +15,12 @@ interface CabinetChat {
 
 type Tab = "leads" | "progress" | "documents" | "chats" | "profile"
 
-const TABS: { key: Tab; label: string; icon: string }[] = [
-  { key: "leads", label: "Мои заявки", icon: "ClipboardList" },
-  { key: "progress", label: "Контроль проводимых работ", icon: "HardDrive" },
-  { key: "documents", label: "Документы", icon: "FolderOpen" },
-  { key: "chats", label: "Переписка", icon: "MessagesSquare" },
-  { key: "profile", label: "Профиль", icon: "UserCog" },
+const TABS: { key: Tab; label: string; shortLabel: string; icon: string }[] = [
+  { key: "leads", label: "Мои заявки", shortLabel: "Заявки", icon: "ClipboardList" },
+  { key: "progress", label: "Контроль проводимых работ", shortLabel: "Работы", icon: "HardDrive" },
+  { key: "documents", label: "Документы", shortLabel: "Документы", icon: "FolderOpen" },
+  { key: "chats", label: "Переписка", shortLabel: "Чат", icon: "MessagesSquare" },
+  { key: "profile", label: "Профиль", shortLabel: "Профиль", icon: "UserCog" },
 ]
 
 function ChatHistory({ chats }: { chats: CabinetChat[] }) {
@@ -77,6 +77,11 @@ export default function Cabinet() {
   const [leads, setLeads] = useState<CabinetLead[] | null>(null)
   const [chats, setChats] = useState<CabinetChat[]>([])
   const [error, setError] = useState("")
+  const activeTabRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    activeTabRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" })
+  }, [tab])
 
   const load = useCallback(async () => {
     setError("")
@@ -128,7 +133,7 @@ export default function Cabinet() {
                 {(user.name || user.email || "?").charAt(0).toUpperCase()}
               </span>
             )}
-            <span className="text-sm truncate max-w-[160px]">{user.name || user.email}</span>
+            <span className="text-sm truncate max-w-[90px] sm:max-w-[160px]">{user.name || user.email}</span>
             <button
               onClick={async () => {
                 await logout()
@@ -155,22 +160,27 @@ export default function Cabinet() {
           </button>
         </div>
 
-        <div className="flex gap-5 overflow-x-auto border-b border-neutral-300 mb-5">
-          {TABS.map((t) => (
-            <button
-              key={t.key}
-              onClick={() => setParams(t.key === "leads" ? {} : { tab: t.key }, { replace: true })}
-              className={`inline-flex items-center gap-2 text-sm pb-3 -mb-px border-b-2 whitespace-nowrap transition-colors ${
-                tab === t.key ? "border-green-600 text-neutral-900 font-medium" : "border-transparent text-neutral-500 hover:text-neutral-900"
-              }`}
-            >
-              <Icon name={t.icon} size={16} />
-              {t.label}
-              {t.key === "documents" && docCount > 0 && (
-                <span className="text-[11px] bg-green-600 text-white px-1.5 rounded-full">{docCount}</span>
-              )}
-            </button>
-          ))}
+        <div className="relative -mx-4 px-4 md:mx-0 md:px-0 mb-5">
+          <div className="flex gap-4 sm:gap-5 overflow-x-auto border-b border-neutral-300 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {TABS.map((t) => (
+              <button
+                key={t.key}
+                ref={tab === t.key ? activeTabRef : undefined}
+                onClick={() => setParams(t.key === "leads" ? {} : { tab: t.key }, { replace: true })}
+                className={`inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm pb-3 -mb-px border-b-2 whitespace-nowrap shrink-0 transition-colors ${
+                  tab === t.key ? "border-green-600 text-neutral-900 font-medium" : "border-transparent text-neutral-500 hover:text-neutral-900"
+                }`}
+              >
+                <Icon name={t.icon} size={16} />
+                <span className="sm:hidden">{t.shortLabel}</span>
+                <span className="hidden sm:inline">{t.label}</span>
+                {t.key === "documents" && docCount > 0 && (
+                  <span className="text-[11px] bg-green-600 text-white px-1.5 rounded-full">{docCount}</span>
+                )}
+              </button>
+            ))}
+          </div>
+          <div className="pointer-events-none absolute right-0 top-0 bottom-3 w-8 bg-gradient-to-l from-neutral-100 md:hidden" />
         </div>
 
         {error && <p className="text-sm text-red-600 mb-4">{error}</p>}
