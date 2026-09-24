@@ -32,6 +32,10 @@ export interface CabinetLead {
   progress_photos: ProgressPhoto[]
 }
 
+function isImage(name: string) {
+  return /\.(jpe?g|png|webp|gif)$/i.test(name)
+}
+
 export function formatDate(iso: string, withTime = false) {
   return new Date(iso).toLocaleString("ru-RU", {
     day: "2-digit",
@@ -78,9 +82,13 @@ export function CabinetDocuments({ leads }: { leads: CabinetLead[] }) {
           rel="noopener noreferrer"
           className="flex items-center gap-4 px-5 py-4 hover:bg-neutral-50 transition-colors group"
         >
-          <span className="w-10 h-10 bg-green-50 text-green-700 flex items-center justify-center shrink-0">
-            <Icon name="FileText" size={18} />
-          </span>
+          {isImage(d.name) ? (
+            <img src={d.url} alt="" className="w-10 h-10 object-cover shrink-0" />
+          ) : (
+            <span className="w-10 h-10 bg-green-50 text-green-700 flex items-center justify-center shrink-0">
+              <Icon name="FileText" size={18} />
+            </span>
+          )}
           <span className="flex-1 min-w-0">
             <span className="block text-sm text-neutral-900 truncate">{d.title}</span>
             <span className="block text-xs text-neutral-500">
@@ -175,18 +183,31 @@ export function CabinetLeads({ leads, onNewLead }: { leads: CabinetLead[]; onNew
             <StatusSteps status={l.status} />
             {l.documents.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-4">
-                {l.documents.map((d) => (
-                  <a
-                    key={d.id}
-                    href={d.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs border border-green-600/40 text-green-800 px-3 py-1.5 hover:bg-green-600 hover:text-white transition-colors"
-                  >
-                    <Icon name="FileDown" size={14} />
-                    {d.title}
-                  </a>
-                ))}
+                {l.documents.map((d) =>
+                  isImage(d.name) ? (
+                    <a
+                      key={d.id}
+                      href={d.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-2 border border-neutral-200 hover:border-green-600 px-2 py-1.5 max-w-[220px] transition-colors"
+                    >
+                      <img src={d.url} alt="" className="w-8 h-8 object-cover shrink-0" />
+                      <span className="text-xs text-neutral-700 group-hover:text-green-800 truncate">{d.title}</span>
+                    </a>
+                  ) : (
+                    <a
+                      key={d.id}
+                      href={d.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 text-xs border border-green-600/40 text-green-800 px-3 py-1.5 hover:bg-green-600 hover:text-white transition-colors"
+                    >
+                      <Icon name="FileDown" size={14} />
+                      {d.title}
+                    </a>
+                  )
+                )}
               </div>
             )}
           </div>
