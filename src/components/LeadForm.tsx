@@ -89,7 +89,7 @@ export function LeadForm({ initialService }: { initialService?: string } = {}) {
             </p>
             <ul className="space-y-4">
               {[
-                { icon: "Clock", text: "Ответим в течение 1 рабочего дня" },
+                { icon: "Clock", text: "Ответим в ближайшее время" },
                 { icon: "Calculator", text: "Предварительный расчёт стоимости и сроков" },
                 { icon: "ShieldCheck", text: "Бесплатно и ни к чему не обязывает" },
               ].map((item) => (
@@ -108,7 +108,7 @@ export function LeadForm({ initialService }: { initialService?: string } = {}) {
               <div className="text-center py-10">
                 <Icon name="CheckCircle" size={56} className="mx-auto mb-5 text-green-500" />
                 <h3 className="text-2xl font-medium mb-3 text-foreground">Заявка принята!</h3>
-                <p className="text-muted-foreground mb-2">Мы изучим объект и свяжемся с вами в течение 1 рабочего дня.</p>
+                <p className="text-muted-foreground mb-2">Мы изучим объект и свяжемся с вами в ближайшее время.</p>
 
                 {sentResult && (sentResult.files.length > 0 || sentResult.links.length > 0) && (
                   <div className="text-left bg-secondary/60 border border-border p-4 mt-6 mb-2">
