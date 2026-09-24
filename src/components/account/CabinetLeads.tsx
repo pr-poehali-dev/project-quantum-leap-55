@@ -212,7 +212,10 @@ export function CabinetLeads({ leads, onNewLead }: { leads: CabinetLead[]; onNew
                       className="group flex items-center gap-2 border border-neutral-200 hover:border-green-600 px-2 py-1.5 max-w-[220px] transition-colors"
                     >
                       <img src={d.url} alt="" className="w-8 h-8 object-cover shrink-0" />
-                      <span className="text-xs text-neutral-700 group-hover:text-green-800 truncate">{d.title}</span>
+                      <span className="min-w-0">
+                        <span className="block text-xs text-neutral-700 group-hover:text-green-800 truncate">{d.title}</span>
+                        <span className="block text-[11px] text-neutral-400">{formatDate(d.created_at)}</span>
+                      </span>
                     </a>
                   ) : (
                     <a
