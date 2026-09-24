@@ -6,7 +6,7 @@ import secrets
 import psycopg2
 
 SESSION_DAYS = 90
-USER_FIELDS = 'id, email, name, phone, avatar_url, yandex_id, google_id, password_hash'
+USER_FIELDS = 'id, email, name, phone, avatar_url, yandex_id, password_hash'
 
 
 def esc(value) -> str:
@@ -46,8 +46,7 @@ def user_row_to_dict(r) -> dict:
         'phone': r[3] or '',
         'avatar': r[4] or '',
         'yandex': bool(r[5]),
-        'google': bool(r[6]),
-        'has_password': bool(r[7]),
+        'has_password': bool(r[6]),
     }
 
 
@@ -70,7 +69,7 @@ def user_by_token(cur, token: str):
     if not token or len(token) > 128:
         return None
     cur.execute(
-        f"SELECT u.id, u.email, u.name, u.phone, u.avatar_url, u.yandex_id, u.google_id, u.password_hash "
+        f"SELECT u.id, u.email, u.name, u.phone, u.avatar_url, u.yandex_id, u.password_hash "
         f"FROM {schema()}.user_sessions s JOIN {schema()}.users u ON u.id = s.user_id "
         f"WHERE s.token = '{esc(token)}' AND s.expires_at > NOW() LIMIT 1"
     )

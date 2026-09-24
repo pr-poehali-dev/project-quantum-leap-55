@@ -1,20 +1,12 @@
 import { useEffect, useState } from "react"
 import { AUTH_URL, startOAuth } from "@/lib/auth"
 
-type Provider = "yandex" | "google"
+type Provider = "yandex"
 
 function YandexMark() {
   return (
     <span className="w-5 h-5 rounded-full bg-[#FC3F1D] text-white text-[13px] font-bold flex items-center justify-center leading-none">
       Я
-    </span>
-  )
-}
-
-function GoogleMark() {
-  return (
-    <span className="w-5 h-5 rounded-full border border-neutral-300 bg-white text-[13px] font-bold flex items-center justify-center leading-none text-[#4285F4]">
-      G
     </span>
   )
 }
@@ -43,7 +35,6 @@ export function OAuthButtons({ returnTo = "/cabinet", onError }: { returnTo?: st
 
   const items: { key: Provider; label: string; mark: JSX.Element }[] = [
     { key: "yandex", label: "Войти с Яндекс ID", mark: <YandexMark /> },
-    { key: "google", label: "Войти через Google", mark: <GoogleMark /> },
   ]
 
   return (

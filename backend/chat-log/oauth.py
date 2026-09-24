@@ -10,12 +10,6 @@ PROVIDERS = {
         'id_env': 'YANDEX_CLIENT_ID',
         'secret_env': 'YANDEX_CLIENT_SECRET',
     },
-    'google': {
-        'auth_url': 'https://accounts.google.com/o/oauth2/v2/auth',
-        'token_url': 'https://oauth2.googleapis.com/token',
-        'id_env': 'GOOGLE_CLIENT_ID',
-        'secret_env': 'GOOGLE_CLIENT_SECRET',
-    },
 }
 
 
@@ -31,11 +25,7 @@ def build_auth_url(provider: str, redirect_uri: str, state: str) -> str:
         'redirect_uri': redirect_uri,
         'state': state,
     }
-    if provider == 'google':
-        params['scope'] = 'openid email profile'
-        params['prompt'] = 'select_account'
-    else:
-        params['force_confirm'] = 'yes'
+    params['force_confirm'] = 'yes'
     return f"{cfg['auth_url']}?{urllib.parse.urlencode(params)}"
 
 
@@ -62,27 +52,16 @@ def fetch_profile(provider: str, code: str, redirect_uri: str) -> dict:
     if not access:
         raise ValueError('no access token')
 
-    if provider == 'yandex':
-        info = _http('https://login.yandex.ru/info?format=json', headers={'Authorization': f'OAuth {access}'})
-        avatar = ''
-        if info.get('default_avatar_id') and not info.get('is_avatar_empty'):
-            avatar = f"https://avatars.yandex.net/get-yapic/{info['default_avatar_id']}/islands-200"
-        name = info.get('real_name') or ' '.join(x for x in [info.get('first_name'), info.get('last_name')] if x) or info.get('display_name') or ''
-        return {
-            'id': str(info.get('id') or ''),
-            'email': (info.get('default_email') or '').lower(),
-            'email_verified': True,
-            'name': name,
-            'phone': ((info.get('default_phone') or {}).get('number') or ''),
-            'avatar': avatar,
-        }
-
-    info = _http('https://openidconnect.googleapis.com/v1/userinfo', headers={'Authorization': f'Bearer {access}'})
+    info = _http('https://login.yandex.ru/info?format=json', headers={'Authorization': f'OAuth {access}'})
+    avatar = ''
+    if info.get('default_avatar_id') and not info.get('is_avatar_empty'):
+        avatar = f"https://avatars.yandex.net/get-yapic/{info['default_avatar_id']}/islands-200"
+    name = info.get('real_name') or ' '.join(x for x in [info.get('first_name'), info.get('last_name')] if x) or info.get('display_name') or ''
     return {
-        'id': str(info.get('sub') or ''),
-        'email': (info.get('email') or '').lower(),
-        'email_verified': bool(info.get('email_verified')),
-        'name': info.get('name') or '',
-        'phone': '',
-        'avatar': info.get('picture') or '',
+        'id': str(info.get('id') or ''),
+        'email': (info.get('default_email') or '').lower(),
+        'email_verified': True,
+        'name': name,
+        'phone': ((info.get('default_phone') or {}).get('number') or ''),
+        'avatar': avatar,
     }

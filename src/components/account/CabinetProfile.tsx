@@ -26,7 +26,7 @@ export function CabinetProfile({ user }: { user: AuthUser }) {
     }
   }
 
-  const link = (p: "yandex" | "google") =>
+  const link = (p: "yandex") =>
     startOAuth(p, "/cabinet?tab=profile").catch((e) => setMsg({ ok: false, text: e instanceof Error ? e.message : "Ошибка" }))
 
   return (
@@ -57,7 +57,6 @@ export function CabinetProfile({ user }: { user: AuthUser }) {
         <div className="space-y-2">
           {([
             ["yandex", "Яндекс ID", user.yandex],
-            ["google", "Google", user.google],
           ] as const).map(([key, label, linked]) => (
             <div key={key} className="flex items-center justify-between border border-neutral-200 px-4 py-3">
               <span className="text-sm text-neutral-800">{label}</span>

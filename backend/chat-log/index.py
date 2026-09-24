@@ -43,7 +43,7 @@ def user_id_from_token(cur, schema: str, event: dict):
 
 
 def handler(event: dict, context) -> dict:
-    """Переписки с ИИ-консультантом, вход и регистрация клиентов (почта, Яндекс, Google) и личный кабинет."""
+    """Переписки с ИИ-консультантом, вход и регистрация клиентов (почта, Яндекс) и личный кабинет."""
     if event.get('httpMethod') == 'OPTIONS':
         return {'statusCode': 200, 'headers': CORS_HEADERS, 'body': ''}
 

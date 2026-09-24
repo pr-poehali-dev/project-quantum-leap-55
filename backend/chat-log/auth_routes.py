@@ -84,9 +84,9 @@ def route(action: str, body: dict, token: str, cur) -> dict:
             return respond(400, {'error': 'Укажите имя'})
         existing = get_user(cur, f"LOWER(email) = '{esc(email)}'")
         if existing:
-            if existing[7]:
+            if existing[6]:
                 return respond(409, {'error': 'Эта почта уже зарегистрирована. Войдите или восстановите пароль'})
-            return respond(409, {'error': 'Эта почта уже привязана к входу через Яндекс или Google. Войдите тем же способом'})
+            return respond(409, {'error': 'Эта почта уже привязана к входу через Яндекс. Войдите тем же способом'})
         cur.execute(
             f"INSERT INTO {s}.users (email, password_hash, name, phone) VALUES "
             f"('{esc(email)}', '{esc(hash_password(password))}', '{esc(name)}', '{esc(phone)}') RETURNING id"
@@ -98,7 +98,7 @@ def route(action: str, body: dict, token: str, cur) -> dict:
         email = str(body.get('email') or '').strip().lower()[:255]
         password = str(body.get('password') or '')
         row = get_user(cur, f"LOWER(email) = '{esc(email)}'") if email else None
-        if not row or not check_password(password, row[7]):
+        if not row or not check_password(password, row[6]):
             return respond(401, {'error': 'Неверная почта или пароль'})
         return ok_session(cur, row)
 

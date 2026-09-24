@@ -15,7 +15,6 @@ export interface AuthUser {
   phone: string
   avatar: string
   yandex: boolean
-  google: boolean
   has_password: boolean
 }
 
@@ -102,7 +101,7 @@ export function oauthRedirectUri() {
   return `${window.location.origin}/auth/callback`
 }
 
-export async function startOAuth(provider: "yandex" | "google", returnTo = "/cabinet") {
+export async function startOAuth(provider: "yandex", returnTo = "/cabinet") {
   const url = `${AUTH_URL}&action=oauth_url&provider=${provider}&redirect_uri=${encodeURIComponent(oauthRedirectUri())}`
   const res = await fetch(url)
   const data = await res.json().catch(() => ({}))
@@ -112,7 +111,7 @@ export async function startOAuth(provider: "yandex" | "google", returnTo = "/cab
   window.location.href = data.url
 }
 
-export function takeOAuthState(): { state: string; provider: "yandex" | "google" } | null {
+export function takeOAuthState(): { state: string; provider: "yandex" } | null {
   try {
     const raw = sessionStorage.getItem(OAUTH_STATE_KEY)
     sessionStorage.removeItem(OAUTH_STATE_KEY)
