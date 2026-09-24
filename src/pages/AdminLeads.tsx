@@ -1,3 +1,4 @@
+import { useSeo } from "@/hooks/useSeo"
 import { useEffect, useMemo, useState } from "react"
 import Icon from "@/components/ui/icon"
 
@@ -131,6 +132,7 @@ function LeadCard({ lead }: { lead: Lead }) {
 }
 
 export default function AdminLeads() {
+  useSeo({ title: "Заявки — СК ВЫСОТА", noindex: true })
   const [password, setPassword] = useState<string>(() => sessionStorage.getItem(STORAGE_KEY) || "")
   const [leads, setLeads] = useState<Lead[] | null>(null)
   const [loading, setLoading] = useState(false)

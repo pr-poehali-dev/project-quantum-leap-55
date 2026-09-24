@@ -137,7 +137,9 @@ export function Hero() {
           <h1
             ref={titleRef}
             className="text-center mb-0 tracking-tight leading-[0.9] lg:text-5xl text-3xl text-slate-100 font-normal"
-          ></h1>
+          >
+            <span className="sr-only">СК ВЫСОТА — строительная компания: общестроительные работы, производство и монтаж металлоконструкций в Москве и области</span>
+          </h1>
         </div>
 
         <p className="text-center text-white/60 text-sm tracking-[0.3em] uppercase mt-4 md:mt-16 mb-4">Почему нам доверяют</p>

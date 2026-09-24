@@ -1,3 +1,4 @@
+import { useSeo } from "@/hooks/useSeo"
 import { Header } from "@/components/Header"
 import { Footer } from "@/components/Footer"
 
@@ -63,6 +64,10 @@ const sections = [
 ]
 
 export default function PrivacyPolicy() {
+  useSeo({
+    title: "Политика конфиденциальности — СК ВЫСОТА",
+    description: "Как ООО «Строительная компания ВЫСОТА» обрабатывает персональные данные, полученные через формы на сайте.",
+  })
   return (
     <div className="min-h-screen bg-background">
       <Header />

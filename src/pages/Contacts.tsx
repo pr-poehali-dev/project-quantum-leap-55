@@ -1,3 +1,4 @@
+import { useSeo } from "@/hooks/useSeo"
 import { Header } from "@/components/Header"
 import Icon from "@/components/ui/icon"
 import { useState } from "react"
@@ -82,6 +83,10 @@ function ConsultModal({ manager, onClose }: ModalProps) {
 
 export default function Contacts() {
   const [modalManager, setModalManager] = useState<typeof managers[0] | null>(null)
+  useSeo({
+    title: "Контакты — СК ВЫСОТА, строительная компания в Москве",
+    description: "Контакты строительной компании СК ВЫСОТА: телефон +7 909 153-00-33, почта skvisotapro@mail.ru, офис в Москве (Киевское шоссе). Реквизиты ООО «Строительная компания ВЫСОТА».",
+  })
 
   return (
     <div
