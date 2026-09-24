@@ -1,7 +1,89 @@
 {
   "tests": [
-    {"name": "OPTIONS preflight", "method": "OPTIONS", "path": "/", "expectedStatus": 200},
-    {"name": "Bad session rejected", "method": "POST", "path": "/", "body": {"session_id": "x", "messages": []}, "expectedStatus": 400, "expectedBody": {"error": "string"}, "bodyMatcher": "partial"},
-    {"name": "Save chat", "method": "POST", "path": "/", "body": {"session_id": "test-session-0001", "page": "/", "messages": [{"role": "assistant", "content": "Здравствуйте!"}, {"role": "user", "content": "Тестовый вопрос"}]}, "expectedStatus": 200, "expectedBody": {"ok": true}, "bodyMatcher": "partial"}
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Bad session rejected",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "session_id": "x",
+        "messages": []
+      },
+      "expectedStatus": 400,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Save chat",
+      "method": "POST",
+      "path": "/",
+      "body": {
+        "session_id": "test-session-0001",
+        "page": "/",
+        "messages": [
+          {
+            "role": "assistant",
+            "content": "Здравствуйте!"
+          },
+          {
+            "role": "user",
+            "content": "Тестовый вопрос"
+          }
+        ]
+      },
+      "expectedStatus": 200,
+      "expectedBody": {
+        "ok": true
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Auth providers",
+      "method": "GET",
+      "path": "/?area=auth&action=providers",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Auth me without token",
+      "method": "GET",
+      "path": "/?area=auth&action=me",
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Wrong login",
+      "method": "POST",
+      "path": "/?area=auth",
+      "body": {
+        "action": "login",
+        "email": "nobody@example.com",
+        "password": "wrong-pass"
+      },
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    },
+    {
+      "name": "Cabinet without token",
+      "method": "GET",
+      "path": "/?area=cabinet",
+      "expectedStatus": 401,
+      "expectedBody": {
+        "error": "string"
+      },
+      "bodyMatcher": "partial"
+    }
   ]
 }

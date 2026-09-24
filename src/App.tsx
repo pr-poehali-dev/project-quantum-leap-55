@@ -11,6 +11,9 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import ServicesIndex from "./pages/ServicesIndex";
 import ServicePage from "./pages/ServicePage";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Cabinet from "./pages/Cabinet";
+import AuthCallback from "./pages/AuthCallback";
 import ChatWidget from "./components/chat/ChatWidget";
 import ScrollToTop from "./components/ScrollToTop";
 
@@ -30,6 +33,9 @@ const App = () => (
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/uslugi" element={<ServicesIndex />} />
           <Route path="/uslugi/:slug" element={<ServicePage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cabinet" element={<Cabinet />} />
+          <Route path="/auth/callback" element={<AuthCallback />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

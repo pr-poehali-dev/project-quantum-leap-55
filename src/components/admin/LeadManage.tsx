@@ -1,0 +1,165 @@
+import { useRef, useState } from "react"
+import Icon from "@/components/ui/icon"
+import { LEAD_STATUSES, statusInfo } from "@/lib/leadStatus"
+import { formatSize } from "@/components/lead/fileUpload"
+
+export interface LeadDocument {
+  id: number
+  name: string
+  title: string
+  url: string
+  size: number
+  created_at: string
+}
+
+const MAX_DOC_SIZE = 3 * 1024 * 1024
+const DOC_ACCEPT = ".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.webp,.zip,.rar,.7z,.dwg,.dxf,.txt,.rtf"
+
+function readAsDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => resolve(reader.result as string)
+    reader.onerror = () => reject(reader.error)
+    reader.readAsDataURL(file)
+  })
+}
+
+interface Props {
+  apiUrl: string
+  password: string
+  leadId: number
+  status: string
+  documents: LeadDocument[]
+  hasAccount: boolean
+  onChanged: () => void
+}
+
+export function LeadManage({ apiUrl, password, leadId, status, documents, hasAccount, onChanged }: Props) {
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState("")
+  const [title, setTitle] = useState("")
+  const fileRef = useRef<HTMLInputElement>(null)
+
+  const post = async (body: Record<string, unknown>) => {
+    const res = await fetch(apiUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Admin-Password": password },
+      body: JSON.stringify(body),
+    })
+    const data = await res.json().catch(() => ({}))
+    if (!res.ok) throw new Error(data.error || "Ошибка")
+    return data
+  }
+
+  const run = async (fn: () => Promise<unknown>) => {
+    setBusy(true)
+    setError("")
+    try {
+      await fn()
+      onChanged()
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Ошибка")
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const upload = (file: File) =>
+    run(async () => {
+      if (file.size > MAX_DOC_SIZE) throw new Error("Файл больше 3 МБ")
+      const data = await readAsDataUrl(file)
+      await post({
+        action: "upload_document",
+        lead_id: leadId,
+        filename: file.name,
+        title: title.trim(),
+        contentType: file.type || "application/octet-stream",
+        data,
+      })
+      setTitle("")
+    })
+
+  const current = statusInfo(status)
+
+  return (
+    <div className="mt-4 pt-4 border-t border-neutral-100 space-y-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs text-neutral-500">Статус:</span>
+        <select
+          value={current.key}
+          disabled={busy}
+          onChange={(e) => run(() => post({ action: "set_status", lead_id: leadId, status: e.target.value }))}
+          className={`text-xs font-medium px-2 py-1 border-0 outline-none cursor-pointer ${current.className}`}
+        >
+          {LEAD_STATUSES.map((s) => (
+            <option key={s.key} value={s.key} className="bg-white text-neutral-900">
+              {s.label}
+            </option>
+          ))}
+        </select>
+        {!hasAccount && (
+          <span className="text-xs text-neutral-400">клиент без личного кабинета: статус и документы он не увидит</span>
+        )}
+      </div>
+
+      {documents.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {documents.map((d) => (
+            <div key={d.id} className="flex items-center gap-2 border border-neutral-200 bg-neutral-50 pl-2 pr-1 py-1 max-w-[300px]">
+              <Icon name="FileText" size={14} className="text-neutral-500 shrink-0" />
+              <a href={d.url} target="_blank" rel="noopener noreferrer" className="text-xs text-neutral-800 hover:underline truncate">
+                {d.title}
+              </a>
+              <span className="text-[11px] text-neutral-400 shrink-0">{formatSize(d.size)}</span>
+              <button
+                type="button"
+                disabled={busy}
+                onClick={() => {
+                  if (window.confirm(`Убрать документ «${d.title}» из кабинета клиента?`)) {
+                    run(() => post({ action: "hide_document", document_id: d.id }))
+                  }
+                }}
+                className="p-1 text-neutral-400 hover:text-red-600 shrink-0"
+                aria-label="Удалить документ"
+              >
+                <Icon name="X" size={13} />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="flex flex-col sm:flex-row gap-2">
+        <input
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="Название документа (например, «Смета на ангар»)"
+          className="flex-1 border border-neutral-200 px-3 py-2 text-xs text-neutral-900 outline-none focus:border-neutral-900"
+        />
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => fileRef.current?.click()}
+          className="inline-flex items-center justify-center gap-2 text-xs px-3 py-2 bg-neutral-900 text-white hover:bg-neutral-700 disabled:opacity-50"
+        >
+          <Icon name={busy ? "Loader2" : "Upload"} size={14} className={busy ? "animate-spin" : ""} />
+          Загрузить документ клиенту
+        </button>
+        <input
+          ref={fileRef}
+          type="file"
+          accept={DOC_ACCEPT}
+          className="hidden"
+          onChange={(e) => {
+            const f = e.target.files?.[0]
+            e.target.value = ""
+            if (f) upload(f)
+          }}
+        />
+      </div>
+      {error && <p className="text-xs text-red-600">{error}</p>}
+    </div>
+  )
+}
+
+export default LeadManage

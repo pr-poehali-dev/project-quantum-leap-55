@@ -1,12 +1,13 @@
 import { ArrowRight, Phone } from "lucide-react"
 import { HighlightedText } from "./HighlightedText"
 import { useState } from "react"
+import { authHeaders, getStoredUser, getToken } from "@/lib/auth"
 
 const LEADS_URL = "https://functions.poehali.dev/e0b11d0c-3147-4a38-9d0a-17977fdefa27"
 
 function CallbackModal({ onClose }: { onClose: () => void }) {
-  const [phone, setPhone] = useState("")
-  const [name, setName] = useState("")
+  const [phone, setPhone] = useState(() => (getToken() ? getStoredUser()?.phone || "" : ""))
+  const [name, setName] = useState(() => (getToken() ? getStoredUser()?.name || "" : ""))
   const [sent, setSent] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -18,7 +19,7 @@ function CallbackModal({ onClose }: { onClose: () => void }) {
     try {
       const res = await fetch(LEADS_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({ name, phone, source: "callback" }),
       })
       const data = await res.json()

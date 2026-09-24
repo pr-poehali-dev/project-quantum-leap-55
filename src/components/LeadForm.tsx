@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import Icon from "@/components/ui/icon"
 import { FileAttachments, type AttachedFile } from "@/components/lead/FileAttachments"
+import { authHeaders, useAuth } from "@/lib/auth"
 
 const LEADS_URL = "https://functions.poehali.dev/e0b11d0c-3147-4a38-9d0a-17977fdefa27"
 
@@ -19,6 +20,13 @@ export function LeadForm({ initialService }: { initialService?: string } = {}) {
   const [status, setStatus] = useState<"idle" | "loading" | "sent" | "error">("idle")
   const [errorText, setErrorText] = useState("")
   const [sentResult, setSentResult] = useState<SentResult | null>(null)
+  const user = useAuth()
+
+  useEffect(() => {
+    if (!user) return
+    setName((prev) => prev || user.name)
+    setPhone((prev) => prev || user.phone)
+  }, [user, status])
 
   useEffect(() => {
     const handler = (e: Event) => {
@@ -42,7 +50,7 @@ export function LeadForm({ initialService }: { initialService?: string } = {}) {
     try {
       const res = await fetch(LEADS_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({
           name,
           phone,

@@ -10,7 +10,7 @@ import psycopg2
 CORS_HEADERS = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, X-Auth-Token',
     'Access-Control-Max-Age': '86400',
 }
 
@@ -32,6 +32,18 @@ def respond(status: int, body: dict) -> dict:
 
 def esc(value: str) -> str:
     return value.replace("'", "''")
+
+
+def user_id_from_token(cur, schema: str, event: dict):
+    headers = {k.lower(): v for k, v in (event.get('headers') or {}).items()}
+    token = headers.get('x-auth-token') or ''
+    if not token or len(token) > 128:
+        return None
+    cur.execute(
+        f"SELECT user_id FROM {schema}.user_sessions WHERE token = '{esc(token)}' AND expires_at > NOW() LIMIT 1"
+    )
+    row = cur.fetchone()
+    return int(row[0]) if row else None
 
 
 def send_email(lead_id: int, name: str, phone: str, description: str, source: str, files: list, region: str, links: list) -> bool:
@@ -104,11 +116,12 @@ def handler(event: dict, context) -> dict:
     conn = psycopg2.connect(os.environ['DATABASE_URL'])
     conn.autocommit = True
     cur = conn.cursor()
+    user_id = user_id_from_token(cur, schema, event)
     cur.execute(
-        f"INSERT INTO {schema}.leads (name, phone, description, source, files, region, links) "
+        f"INSERT INTO {schema}.leads (name, phone, description, source, files, region, links, user_id) "
         f"VALUES ('{esc(name)}', '{esc(phone)}', '{esc(description)}', '{source}', "
         f"'{esc(json.dumps(files, ensure_ascii=False))}', '{esc(region)}', "
-        f"'{esc(json.dumps(links, ensure_ascii=False))}') RETURNING id"
+        f"'{esc(json.dumps(links, ensure_ascii=False))}', {user_id if user_id else 'NULL'}) RETURNING id"
     )
     lead_id = cur.fetchone()[0]
 

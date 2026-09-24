@@ -2,6 +2,8 @@ import { useSeo } from "@/hooks/useSeo"
 import { useEffect, useMemo, useState } from "react"
 import Icon from "@/components/ui/icon"
 import { AdminChats } from "@/components/admin/AdminChats"
+import { LeadManage, type LeadDocument } from "@/components/admin/LeadManage"
+import { statusInfo } from "@/lib/leadStatus"
 
 const API_URL = "https://functions.poehali.dev/d60bcfed-8ba1-4c96-8bce-942717961b03"
 const STORAGE_KEY = "admin_leads_password"
@@ -20,6 +22,11 @@ interface Lead {
   files: LeadFile[]
   email_sent: boolean
   created_at: string
+  status: string
+  user_id: number | null
+  user_email: string
+  user_name: string
+  documents: LeadDocument[]
 }
 
 const SOURCE_LABELS: Record<string, { label: string; className: string }> = {
@@ -78,7 +85,15 @@ function LoginForm({ onLogin, error, loading }: { onLogin: (p: string) => void; 
   )
 }
 
-function LeadCard({ lead }: { lead: Lead }) {
+interface LeadCardProps {
+  lead: Lead
+  apiUrl: string
+  password: string
+  onChanged: () => void
+}
+
+function LeadCard({ lead, apiUrl, password, onChanged }: LeadCardProps) {
+  const st = statusInfo(lead.status)
   const src = SOURCE_LABELS[lead.source] || { label: lead.source, className: "bg-neutral-100 text-neutral-700" }
   return (
     <div className="bg-white border border-neutral-200 p-5 md:p-6">
@@ -86,6 +101,13 @@ function LeadCard({ lead }: { lead: Lead }) {
         <span className="text-xs text-neutral-400">№{lead.id}</span>
         <span className={`text-xs px-2 py-0.5 font-medium ${src.className}`}>{src.label}</span>
         <span className="text-xs text-neutral-500">{formatDate(lead.created_at)}</span>
+        <span className={`text-xs px-2 py-0.5 font-medium ${st.className}`}>{st.label}</span>
+        {lead.user_id && (
+          <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 bg-green-50 text-green-800" title={lead.user_email}>
+            <Icon name="UserCheck" size={12} />
+            есть кабинет{lead.user_email ? `: ${lead.user_email}` : ""}
+          </span>
+        )}
         {!lead.email_sent && (
           <span className="text-xs px-2 py-0.5 bg-neutral-100 text-neutral-500" title="Письмо на почту не отправилось">
             без письма
@@ -128,6 +150,16 @@ function LeadCard({ lead }: { lead: Lead }) {
           ))}
         </div>
       )}
+
+      <LeadManage
+        apiUrl={apiUrl}
+        password={password}
+        leadId={lead.id}
+        status={lead.status}
+        documents={lead.documents || []}
+        hasAccount={!!lead.user_id}
+        onChanged={onChanged}
+      />
     </div>
   )
 }
@@ -143,8 +175,8 @@ export default function AdminLeads() {
   const [tab, setTab] = useState<"leads" | "chats">("leads")
   const [reloadKey, setReloadKey] = useState(0)
 
-  const load = async (pwd: string) => {
-    setLoading(true)
+  const load = async (pwd: string, silent = false) => {
+    if (!silent) setLoading(true)
     setError("")
     try {
       const res = await fetch(API_URL, { headers: { "X-Admin-Password": pwd } })
@@ -291,7 +323,7 @@ export default function AdminLeads() {
         ) : (
           <div className="space-y-3">
             {visible.map((lead) => (
-              <LeadCard key={lead.id} lead={lead} />
+              <LeadCard key={lead.id} lead={lead} apiUrl={API_URL} password={password} onChanged={() => load(password, true)} />
             ))}
           </div>
         )}

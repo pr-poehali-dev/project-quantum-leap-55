@@ -1,12 +1,17 @@
 import { useState, useEffect, MouseEvent } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { cn } from "../lib/utils"
+import Icon from "@/components/ui/icon"
+import { useAuth } from "@/lib/auth"
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
+  const user = useAuth()
+  const accountHref = user ? "/cabinet" : "/login"
+  const accountLabel = user ? "Кабинет" : "Войти"
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,6 +98,18 @@ export function Header() {
         </ul>
 
         <div className="hidden md:flex items-center gap-3">
+          <a
+            href={accountHref}
+            onClick={(e) => {
+              e.preventDefault()
+              navigate(accountHref)
+            }}
+            className="inline-flex items-center gap-2 text-sm px-3 py-2.5 text-white hover:text-[rgb(251,146,60)] transition-colors"
+            title={user ? "Личный кабинет" : "Вход в личный кабинет"}
+          >
+            <Icon name={user ? "UserCheck" : "User"} size={18} />
+            {accountLabel}
+          </a>
           <button
             onClick={openLeadForm}
             className="text-sm px-5 py-2.5 transition-all duration-300 border border-white/40 text-white hover:bg-white hover:text-foreground"
@@ -158,6 +175,19 @@ export function Header() {
               </li>
             ))}
           </ul>
+
+          <a
+            href={accountHref}
+            onClick={(e) => {
+              e.preventDefault()
+              closeMobileMenu()
+              navigate(accountHref)
+            }}
+            className="flex items-center gap-2 text-white text-lg mb-6"
+          >
+            <Icon name={user ? "UserCheck" : "User"} size={20} />
+            {user ? "Личный кабинет" : "Войти в личный кабинет"}
+          </a>
 
           <button
             onClick={openLeadForm}

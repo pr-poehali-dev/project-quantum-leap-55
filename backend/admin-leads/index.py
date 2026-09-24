@@ -4,9 +4,11 @@ import os
 
 import psycopg2
 
+from admin_actions import admin_action
+
 CORS_HEADERS = {
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, X-Admin-Password',
     'Access-Control-Max-Age': '86400',
 }
@@ -25,7 +27,7 @@ def handler(event: dict, context) -> dict:
     if event.get('httpMethod') == 'OPTIONS':
         return {'statusCode': 200, 'headers': CORS_HEADERS, 'body': ''}
 
-    if event.get('httpMethod') != 'GET':
+    if event.get('httpMethod') not in ('GET', 'POST'):
         return respond(405, {'error': 'Метод не поддерживается'})
 
     expected = os.environ.get('ADMIN_PASSWORD') or ''
@@ -37,6 +39,17 @@ def handler(event: dict, context) -> dict:
     schema = os.environ['MAIN_DB_SCHEMA']
     conn = psycopg2.connect(os.environ['DATABASE_URL'])
     cur = conn.cursor()
+
+    if event.get('httpMethod') == 'POST':
+        try:
+            body = json.loads(event.get('body') or '{}')
+        except ValueError:
+            body = {}
+        try:
+            return respond(*admin_action(cur, schema, body))
+        finally:
+            cur.close()
+            conn.close()
 
     params = event.get('queryStringParameters') or {}
     if params.get('type') == 'chats':
@@ -64,10 +77,24 @@ def handler(event: dict, context) -> dict:
         return respond(200, {'chats': chats})
 
     cur.execute(
-        f"SELECT id, name, phone, description, source, files, email_sent, created_at, region, links "
-        f"FROM {schema}.leads ORDER BY created_at DESC LIMIT 1000"
+        f"SELECT l.id, l.name, l.phone, l.description, l.source, l.files, l.email_sent, l.created_at, l.region, l.links, "
+        f"l.status, l.user_id, u.email, u.name "
+        f"FROM {schema}.leads l LEFT JOIN {schema}.users u ON u.id = l.user_id "
+        f"ORDER BY l.created_at DESC LIMIT 1000"
     )
     rows = cur.fetchall()
+    docs = {}
+    if rows:
+        ids = ','.join(str(r[0]) for r in rows)
+        cur.execute(
+            f"SELECT id, lead_id, name, title, url, size, created_at FROM {schema}.lead_documents "
+            f"WHERE lead_id IN ({ids}) AND hidden = FALSE ORDER BY created_at DESC"
+        )
+        for d in cur.fetchall():
+            docs.setdefault(d[1], []).append({
+                'id': d[0], 'name': d[2], 'title': d[3] or d[2], 'url': d[4], 'size': d[5],
+                'created_at': d[6].isoformat() + 'Z' if d[6] else None,
+            })
     cur.close()
     conn.close()
 
@@ -92,6 +119,11 @@ def handler(event: dict, context) -> dict:
             'created_at': r[7].isoformat() + 'Z' if r[7] else None,
             'region': r[8] or '',
             'links': links,
+            'status': r[10],
+            'user_id': r[11],
+            'user_email': r[12] or '',
+            'user_name': r[13] or '',
+            'documents': docs.get(r[0], []),
         })
 
     return respond(200, {'leads': leads})

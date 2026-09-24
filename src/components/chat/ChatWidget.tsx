@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom"
 import Icon from "@/components/ui/icon"
 import { useChatGPT } from "@/components/extensions/chatgpt-polza/useChatGPT"
 import { CONSULTANT_PROMPT } from "./consultantPrompt"
+import { authHeaders } from "@/lib/auth"
 
 const API_URL = "https://functions.poehali.dev/09afe605-ce0d-49c0-b801-2416360bf6e4"
 
@@ -41,7 +42,7 @@ const getSessionId = () => {
 const logChat = (messages: ChatMessage[], page: string) => {
   fetch(LOG_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", ...authHeaders() },
     body: JSON.stringify({ session_id: getSessionId(), messages, page }),
     keepalive: true,
   }).catch(() => undefined)
@@ -134,7 +135,7 @@ export function ChatWidget() {
     logChat([...next, reply], location.pathname)
   }
 
-  if (location.pathname.startsWith("/admin")) return null
+  if (["/admin", "/login", "/auth"].some((p) => location.pathname.startsWith(p))) return null
 
   return (
     <>
