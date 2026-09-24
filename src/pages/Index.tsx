@@ -20,9 +20,9 @@ export default function Index() {
       <Hero />
       <Expertise />
       <Projects />
-      <Philosophy />
-      <FAQ />
       <LeadForm />
+      <FAQ />
+      <Philosophy />
       <CallToAction />
       <Footer />
     </main>
