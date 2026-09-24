@@ -74,9 +74,9 @@ export function Header() {
         <ul className="hidden md:flex items-center gap-10 text-sm tracking-wide">
           {[
             { label: "Главная", href: "/#hero" },
-            { label: "О компании", href: "/#about" },
-            { label: "Проекты", href: "/#projects" },
             { label: "Услуги", href: "/uslugi" },
+            { label: "Проекты", href: "/#projects" },
+            { label: "О компании", href: "/#about" },
             { label: "Вопросы", href: "/#faq" },
             { label: "Контакты", href: "/contacts" },
           ].map((item) => (
@@ -141,9 +141,9 @@ export function Header() {
           <ul className="flex flex-col gap-6 mb-8">
             {[
               { label: "Главная", href: "/#hero" },
-              { label: "О компании", href: "/#about" },
-              { label: "Проекты", href: "/#projects" },
               { label: "Услуги", href: "/uslugi" },
+              { label: "Проекты", href: "/#projects" },
+              { label: "О компании", href: "/#about" },
               { label: "Вопросы", href: "/#faq" },
               { label: "Контакты", href: "/contacts" },
             ].map((item) => (

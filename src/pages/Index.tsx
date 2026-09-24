@@ -18,9 +18,9 @@ export default function Index() {
     <main className="min-h-screen">
       <Header />
       <Hero />
-      <Philosophy />
-      <Projects />
       <Expertise />
+      <Projects />
+      <Philosophy />
       <FAQ />
       <LeadForm />
       <CallToAction />
