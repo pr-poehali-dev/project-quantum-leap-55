@@ -32,7 +32,8 @@ export function useSeo({ title, description, noindex }: SeoOptions) {
       canonical.rel = "canonical"
       document.head.appendChild(canonical)
     }
-    canonical.href = window.location.origin + window.location.pathname
+    canonical.href = "https://skvisota.pro" + window.location.pathname
+    setMeta("property", "og:url", canonical.href)
   }, [title, description, noindex])
 }
 
