@@ -1,3 +1,4 @@
+import { useState } from "react"
 import Icon from "@/components/ui/icon"
 import { statusInfo, LEAD_STATUSES } from "@/lib/leadStatus"
 import { formatSize } from "@/components/lead/fileUpload"
@@ -63,7 +64,13 @@ function StatusSteps({ status }: { status: string }) {
 }
 
 export function CabinetDocuments({ leads }: { leads: CabinetLead[] }) {
-  const docs = leads.flatMap((l) => l.documents.map((d) => ({ ...d, leadId: l.id })))
+  const [order, setOrder] = useState<"desc" | "asc">("desc")
+  const docs = leads
+    .flatMap((l) => l.documents.map((d) => ({ ...d, leadId: l.id })))
+    .sort((a, b) => {
+      const diff = new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+      return order === "asc" ? diff : -diff
+    })
   if (docs.length === 0) {
     return (
       <div className="bg-white border border-neutral-200 py-14 px-6 text-center text-neutral-500">
@@ -73,8 +80,19 @@ export function CabinetDocuments({ leads }: { leads: CabinetLead[] }) {
     )
   }
   return (
-    <div className="bg-white border border-neutral-200 divide-y divide-neutral-100">
-      {docs.map((d) => (
+    <div>
+      <div className="flex justify-end mb-2">
+        <button
+          type="button"
+          onClick={() => setOrder(order === "desc" ? "asc" : "desc")}
+          className="inline-flex items-center gap-1.5 text-xs text-neutral-500 hover:text-neutral-900"
+        >
+          <Icon name={order === "desc" ? "ArrowDownWideNarrow" : "ArrowUpNarrowWide"} size={14} />
+          {order === "desc" ? "Сначала новые" : "Сначала старые"}
+        </button>
+      </div>
+      <div className="bg-white border border-neutral-200 divide-y divide-neutral-100">
+        {docs.map((d) => (
         <a
           key={d.id}
           href={d.url}
@@ -97,7 +115,8 @@ export function CabinetDocuments({ leads }: { leads: CabinetLead[] }) {
           </span>
           <Icon name="Download" size={18} className="text-neutral-400 group-hover:text-green-700 shrink-0" />
         </a>
-      ))}
+        ))}
+      </div>
     </div>
   )
 }
