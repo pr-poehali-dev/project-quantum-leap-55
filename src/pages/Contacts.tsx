@@ -5,6 +5,16 @@ import { useState } from "react"
 
 const managers = [
   {
+    name: "Тамаев Ислам Исаевич",
+    role: "Генеральный директор",
+    specialty: "",
+    phone: "+7 922 002-77-95",
+    phoneHref: "tel:+79220027795",
+    whatsapp: "https://wa.me/79220027795",
+    email: "skvisotapro@mail.ru",
+    photo: "",
+  },
+  {
     name: "Георгий",
     role: "Исполнительный директор",
     specialty: "Управление проектами",
@@ -49,7 +59,7 @@ function ConsultModal({ manager, onClose }: ModalProps) {
         ) : (
           <>
             <h3 className="text-xl font-medium mb-1">Задать вопрос</h3>
-            <p className="text-muted-foreground text-sm mb-6">{manager.name} · {manager.specialty}</p>
+            <p className="text-muted-foreground text-sm mb-6">{manager.specialty ? `${manager.name} · ${manager.specialty}` : `${manager.name} · ${manager.role}`}</p>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               <input
                 type="text"
@@ -111,7 +121,7 @@ export default function Contacts() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {managers.map((manager) => (
-              <div key={manager.email} className="border border-amber-200/10 bg-amber-50/5 backdrop-blur-sm p-8 flex flex-col gap-5">
+              <div key={manager.phone} className="border border-amber-200/10 bg-amber-50/5 backdrop-blur-sm p-8 flex flex-col gap-5">
                 <div className="w-40 h-40 bg-amber-100/10 flex items-center justify-center">
                   {manager.photo ? (
                     <img src={manager.photo} alt={manager.name} className="w-full h-full object-cover" />
@@ -123,7 +133,7 @@ export default function Contacts() {
                 <div>
                   <h3 className="text-xl font-medium mb-1 text-amber-50">{manager.name}</h3>
                   <p className="text-amber-200/50 text-sm">{manager.role}</p>
-                  <p className="text-amber-200/50 text-sm">{manager.specialty}</p>
+                  {manager.specialty && <p className="text-amber-200/50 text-sm">{manager.specialty}</p>}
                 </div>
 
                 <div className="flex flex-col gap-3">
