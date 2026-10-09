@@ -13,6 +13,7 @@ const managers = [
     whatsapp: "https://wa.me/79220027795",
     email: "skvisotapro@mail.ru",
     photo: "",
+    askInWhatsapp: true,
   },
   {
     name: "Георгий",
@@ -23,6 +24,7 @@ const managers = [
     whatsapp: "https://wa.me/79091530033",
     email: "skvisotapro@mail.ru",
     photo: "https://cdn.poehali.dev/projects/ab828921-d5cd-4f26-97d6-4aa4f4adee06/bucket/286baddb-9d86-4c2b-a623-751e60142016.jpg",
+    askInWhatsapp: false,
   },
 ]
 
@@ -122,13 +124,11 @@ export default function Contacts() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             {managers.map((manager) => (
               <div key={manager.phone} className="border border-amber-200/10 bg-amber-50/5 backdrop-blur-sm p-8 flex flex-col gap-5">
-                <div className="w-40 h-40 bg-amber-100/10 flex items-center justify-center">
-                  {manager.photo ? (
+                {manager.photo && (
+                  <div className="w-40 h-40 bg-amber-100/10 flex items-center justify-center">
                     <img src={manager.photo} alt={manager.name} className="w-full h-full object-cover" />
-                  ) : (
-                    <Icon name="User" size={32} className="text-amber-200/40" />
-                  )}
-                </div>
+                  </div>
+                )}
 
                 <div>
                   <h3 className="text-xl font-medium mb-1 text-amber-50">{manager.name}</h3>
@@ -152,7 +152,9 @@ export default function Contacts() {
                 </div>
 
                 <button
-                  onClick={() => setModalManager(manager)}
+                  onClick={() =>
+                    manager.askInWhatsapp ? window.open(manager.whatsapp, "_blank", "noopener,noreferrer") : setModalManager(manager)
+                  }
                   className="mt-auto border border-amber-200/30 text-amber-100 text-sm px-5 py-2.5 hover:bg-amber-100 hover:text-foreground transition-all duration-300"
                 >
                   Задать вопрос
